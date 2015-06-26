@@ -7,9 +7,7 @@ from werkzeug import secure_filename
 
 UPLOAD_FOLDER_IMG = './img/'
 UPLOAD_FOLDER_TXT = './word/'
-
 ALLOWED_EXTENSIONS = set(['txt', 'json', 'png', 'jpg', 'jpeg'])
-
 app = Flask(__name__)
 
 @app.route("/")
@@ -59,7 +57,7 @@ def registlogs():
 	timestamp = request.form['timestamp']
 	# missing event & word typing event
 	#その単語を検索しているユーザはどんなバックグラウンドを持ったユーザなのかを登録したいが。。。
-
+	
 	#googleのスペルチェックAPIが使えるっぽい
 
 
