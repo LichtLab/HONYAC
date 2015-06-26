@@ -2,8 +2,10 @@
 import os
 import json
 import datetime
+import csv
 from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
+from microsofttranslator import Translator
 
 UPLOAD_FOLDER_IMG = './img/'
 UPLOAD_FOLDER_TXT = './word/'
@@ -38,16 +40,33 @@ def upload():
 		return "OK"
 	return "ERR"
 
-@app.route('/translateword', methods=['POST'])
+@app.route('/translateword', methods=['GET','POST'])
 def translate():
-	missingword = request.form['missingword']
-	from_language = request.form['from_language']
-	to_language = request.form['to_language']
-	# Translate this word from [from_language] to [to_language] by ms translator
-	# Registering Word to DB(CSV?)
+	#missingword = request.form['missingword']
+	#to_language = request.form['to_language']
+	missingword = 'develope'
+	to_language = 'ja'
+	#from_language = request.form['from_language']
 
-	#server side must have internet connection(if dont, no client)
-	translated_word = ""
+	#翻訳
+	print '1step'
+	translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
+	# from_languageは自動的に判別されるので指定する必要が無い
+	translated_word = translator.translate(missingword, to_language)
+	print '2step'
+	#translated_word = translator.translate("Hello", "ja")
+	# Registering Word to DB(CSV?)
+	languagetype = translator.detect_language(missingword)
+	print '3step'
+
+	inlinecsv = languagetype + '$YIN$' + missingword + '$YIN$' + to_language + "$YIN$" + translated_word + '\n'
+	print inlinecsv
+	f = open('./word/addinfo_dictionary_utf8.txt', 'a')
+	f.write(inlinecsv.encode('utf-8'))
+	f.close()
+	# writer = csv.writer(file('./word/addinfo_dictionary_utf8.csv', 'w'))
+	# writer.writerow([languagetype.encode('utf-8'), missingword.encode('utf-8'), to_language.encode('utf-8'), translated_word.encode('utf-8')])
+
 	return translated_word;
 
 @app.route('/searchquerylog', methods=["POST"])
@@ -57,9 +76,9 @@ def registlogs():
 	timestamp = request.form['timestamp']
 	# missing event & word typing event
 	#その単語を検索しているユーザはどんなバックグラウンドを持ったユーザなのかを登録したいが。。。
-	
 	#googleのスペルチェックAPIが使えるっぽい
 
 
 if __name__ == '__main__':
-    app.run()
+	context = ('./securekey/honyak.crt', './securekey/honyak.key')
+	app.run(host='0.0.0.0', port=8000, ssl_context=context, threaded=True, debug=True)
