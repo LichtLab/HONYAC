@@ -1,4 +1,4 @@
-#coding:utf-8
+# encoding: utf-8
 import os
 import json
 import datetime
@@ -40,15 +40,27 @@ def upload():
 		return "OK"
 	return "ERR"
 
-@app.route('/uploadword', methods=['POST'])
-def upload():
-	word = request.form['word']
+@app.route('/translateword', methods=['POST'])
+def translate():
+	missingword = request.form['missingword']
 	from_language = request.form['from_language']
 	to_language = request.form['to_language']
-	# Translate this word from [from_language] to [to_language]
+	# Translate this word from [from_language] to [to_language] by ms translator
 	# Registering Word to DB(CSV?)
-	translated_word = "hoge"
+
+	#server side must have internet connection(if dont, no client)
+	translated_word = ""
 	return translated_word;
+
+@app.route('/searchquerylog', methods=["POST"])
+def registlogs():
+	userid = request.form['userid']
+	searchword = request.form['searchword']
+	timestamp = request.form['timestamp']
+	# missing event & word typing event
+	#その単語を検索しているユーザはどんなバックグラウンドを持ったユーザなのかを登録したいが。。。
+
+	#googleのスペルチェックAPIが使えるっぽい
 
 
 if __name__ == '__main__':
