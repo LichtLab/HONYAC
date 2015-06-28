@@ -44,7 +44,7 @@ def upload():
 def translate():
 	#missingword = request.form['missingword']
 	#to_language = request.form['to_language']
-	missingword = 'develope'
+	missingword = 'envelope'
 	to_language = 'ja'
 	#from_language = request.form['from_language']
 
@@ -64,9 +64,6 @@ def translate():
 	f = open('./word/addinfo_dictionary_utf8.txt', 'a')
 	f.write(inlinecsv.encode('utf-8'))
 	f.close()
-	# writer = csv.writer(file('./word/addinfo_dictionary_utf8.csv', 'w'))
-	# writer.writerow([languagetype.encode('utf-8'), missingword.encode('utf-8'), to_language.encode('utf-8'), translated_word.encode('utf-8')])
-
 	return translated_word;
 
 @app.route('/searchquerylog', methods=["POST"])
@@ -75,9 +72,14 @@ def registlogs():
 	searchword = request.form['searchword']
 	timestamp = request.form['timestamp']
 	# missing event & word typing event
+
+	inlineyinsv = userid + '$YIN$' + timestamp + '$YIN$' + searchword + '\n'
+	f = open('./searchlog/searchlog.txt', 'a')
+	f.write(inlinecsv.encode('utf-8'))
+	f.close()
 	#その単語を検索しているユーザはどんなバックグラウンドを持ったユーザなのかを登録したいが。。。
 	#googleのスペルチェックAPIが使えるっぽい
-
+	return 'OK'
 
 if __name__ == '__main__':
 	context = ('./securekey/honyak.crt', './securekey/honyak.key')
