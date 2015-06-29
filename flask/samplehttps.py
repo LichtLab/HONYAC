@@ -1,9 +1,5 @@
 # encoding: utf-8
 from flask import Flask, request, redirect, url_for
-# from OpenSSL import SSL
-# context = SSL.Context(SSL.SSLv23_METHOD)
-# context.use_privatekey_file('./securekey/honyak.key')
-# context.use_certificate_file('./securekey/honyak.crt')
 
 app = Flask(__name__)
 @app.route("/")
