@@ -1,0 +1,8 @@
+pip install requests
+pip install lxml
+pip install cssselect
+
+
+$ pip install chardet
+$ pip install pyquery
+
