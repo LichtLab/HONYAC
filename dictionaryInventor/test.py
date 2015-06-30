@@ -4,23 +4,20 @@ import chardet
 from pyquery import PyQuery as pq
 import string
 import re
+import urllib2
+import lxml.html
 
-# 抜き出すURL
-urls = [
-    'https://esportes.yahoo.com/noticias/guerrero-peru-luta-mas-chile-vence-decide-copa-012402749--spt.html',               # UTF-8
-    'https://br.yahoo.com/',              # EUC-JP
-    ]
+URL_ABSOLUTE = "http://www.correiobraziliense.com.br"
 
-
-def extractwords():
-	 # 各サイトの文字コードを判別
+def extractwords(urls):
+	# 各サイトの文字コードを判別
+    returnurls = []
     detected = []
     for url in urls:
         data = ''.join(urllib.urlopen(url).readlines())
         guess = chardet.detect(data)
         result = dict(url=url,data=data,**guess)
         detected.append(result)
-
     # 各サイトごとに特定タグの文字とリンク先を引っ張ってくる
     for p in detected:
         print '%s -> %s (%s)' % (p['url'], p['encoding'], p['confidence'])
@@ -43,4 +40,31 @@ def extractwords():
             			pass
 
 if __name__ == '__main__':
-   extractwords()
+    urls = [
+    {'base' : 'http://www.correiobraziliense.com.br/'   ,'absolute' : 'http://www.correiobraziliense.com.br'},
+    {'base' : 'http://www.em.com.br/'                   ,'absolute' : 'http://www.em.com.br'},
+    {'base' : 'http://www.estadao.com.br/'              ,'absolute' : 'http://www.estadao.com.br'},
+    {'base' : 'http://www.folha.com/'                   ,'absolute' : 'http://www.folha.com'},
+    {'base' : 'http://oglobo.globo.com/'                ,'absolute' : 'http://oglobo.globo.com'},
+    {'base' : 'http://www.zerohora.com'                 ,'absolute' : 'http://www.zerohora.com'},
+        ]
+    for url in urls:
+        try:
+            html = urllib2.urlopen(url['base']).read()
+            dom = lxml.html.fromstring(html)
+            dom.make_links_absolute(URL_ABSOLUTE)
+            urlList = dom.xpath("//@href")
+            for urlele in urlList:
+                if urlele.find('http') or urlele.find('https'):
+                    if not urlele.find('css') or urlele.find('jpg') or urlele.find('png') or urlele.find('js') or urlele.find('javascript'): 
+                        try:
+                            urldic = {'base': urlele, 'absolute': url['absolute']}
+                            print urldic                
+                        except Exception, e:
+                            pass
+        except Exception, e:
+            pass
+
+    #urls = extractwords(urls)
+    #urls = extractwords(urlList)
+    #print urls

@@ -6,3 +6,13 @@ pip install cssselect
 $ pip install chardet
 $ pip install pyquery
 
+
+
+
+Newspaper	Edition city	Digital edition
+Correio Braziliense	Brasilia	http://www.correiobraziliense.com.br
+Estado de Minas	Belo Horizonte	http://www.em.com.br
+O Estado de S. Paulo	Sao Paulo	http://www.estadao.com.br
+Folha de S. Paulo	Sao Paulo	http://www.folha.com
+O Globo	Rio de Janeiro	http://oglobo.globo.com
+Zero Hora	Porto Alegre	http://www.zerohora.com
