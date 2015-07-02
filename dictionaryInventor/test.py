@@ -6,12 +6,18 @@ import string
 import re
 import urllib2
 import lxml.html
-
+import codecs
 MAX_URL_COUNTS = 500
-
+ 
+ 
+'''
+入力　list(url)...url = 'http;//www.sekine.com/index'
+出力　list(word)...word = 'environment'
+入力にあるページにあるpタグの言語を抽出して１単語ずつのリストにして返す
+'''
 def extractwords_fromwebpagelist(urls):
-	# 各サイトの文字コードを判別
-    returnurls = []
+    returnwords = []
+    # 各サイトの文字コードを判別
     detected = []
     for url in urls:
         data = ''.join(urllib.urlopen(url).readlines())
@@ -24,25 +30,29 @@ def extractwords_fromwebpagelist(urls):
         unicoded = p['data'].decode(p['encoding'])  # デコード
         d = pq(unicoded)
         for link in d.find('p'):  # pタグで抜出し
+            #ここでstrになる可能性があるのでunicodeに変換する
             link_title = pq(link).text()
+            if not isinstance(link_title, unicode):
+                guess = chardet.detect(link_title)
+                link_title = link_title.decode(guess['encoding'])
             #スペースで区切る（単語区切り）
             words = link_title.split();
             for word in words:
-                word.rstrip('\W')
-                #英数字以外を削除
-                word = re.sub(r'[\W]+', "", word)#英数字以外の文字を削除
-                word = re.sub(r'[0-9,_]+', "", word)#数字、アンダースコアを削除
+                # word = re.sub(re.compile("[!-/:-@[-`{-~]"), '', word)
+                word = re.sub(r'[!,\",#,$,%,&,\',\(,\),*,+,-,\,,.,/,:,;,<,=,>,?,@,\^,_,{,|,},~]+', "", word)
+                word = re.sub(r'[0-9,_]+', "", word)
                 word = word.lower()#小文字に変換
                 if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
                     try:
-                        print word
+                        if not isinstance(word, unicode):
+                            print 'not unicode error'
+                            raise 'not unicode error'
+                        returnwords.append(word)
                     except Exception, e:
                         print 'exeption0'
-                        print e.value
                         pass
-
-
-
+    return returnwords
+ 
 '''
 入力　list(dic)...dic = {'base' : 'http;//www.sekine.com/index', 'absolute' : 'http;//www.sekine.com'}
 出力　list(url)...url = 'http;//www.sekine.com/index'
@@ -94,14 +104,14 @@ def getlinkurllist(url_diclist):
                 print 'exception2_sub'
                 print len(newurls)
                 pass
-
+ 
     #集めた新しいurlリンク集まりで単語パースするurlのリストを作る
     wordextraction_targeturls = []
     for url in newurls:
         wordextraction_targeturls.append(url['base'])
     return wordextraction_targeturls
-
-
+ 
+ 
 if __name__ == '__main__':
     urls = [
     {'base' : 'http://www.correiobraziliense.com.br/'   ,'absolute' : 'http://www.correiobraziliense.com.br'},
@@ -111,11 +121,22 @@ if __name__ == '__main__':
     {'base' : 'http://oglobo.globo.com/'                ,'absolute' : 'http://oglobo.globo.com'},
     {'base' : 'http://www.zerohora.com'                 ,'absolute' : 'http://www.zerohora.com'},
         ]
-
-    targeturls = []
+    # targeturls = []
     # targeturls = getlinkurllist(urls)
     print 'EXTRACTING BEGIN'
     testurl = [
     'http://www1.folha.uol.com.br/poder/2015/06/1650009-em-derrota-do-governo-senado-aprova-reajuste-para-servidores-do-judiciario.shtml',
     ]
-    extractwords_fromwebpagelist(testurl)
+    words = []
+    words = extractwords_fromwebpagelist(testurl)
+    # for word in words:
+        # print type(word)
+        # print word
+    f = codecs.open('text.txt', 'w', 'utf-8')
+    for word in words:
+        if not isinstance(word, unicode):
+            print 'not unicode error'
+            # raise 'not unicode error'
+        word = word + '\n'
+        f.write(word)
+    f.close()
