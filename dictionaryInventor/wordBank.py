@@ -2,7 +2,9 @@
 import sqlite3
 import chardet
 import traceback
- 
+from microsofttranslator import Translator
+translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
+
 class WordBank:
     # sqliteは同時接続できないのでdbコネクションはクラス変数
     con = sqlite3.connect("wordBank.db")
@@ -40,9 +42,11 @@ class WordBank:
             if isNew == True:
                 # 新しい単語をDBに保存
                 targetword_count = 1
-                # 本来はここで翻訳
-                tranlated_word = ''
-                insertwordline = (wordline[0], wordline[1], targetword_count, tranlated_word, wordline[2]) 
+                # ここで翻訳
+                tmp = self.translateword(targetword, u'ja')
+                detect_language = tmp[0]
+                translated_word = tmp[1]
+                insertwordline = (wordline[0], targetword, targetword_count, translated_word, wordline[2]) 
                 print insertwordline
                 WordBank.cur.execute("INSERT INTO wordTable(from_language, from_word, count, to_language, to_word) VALUES (?, ?, ?, ?, ?)", insertwordline)
                 print 'INSERTING DONE'
@@ -61,14 +65,23 @@ class WordBank:
  
     def printrecodelist(self):
         print 'RECORD LIST:::'
-        WordBank.cur.execute("SELECT from_word, count FROM wordTable;")
+        WordBank.cur.execute("SELECT from_language, from_word, count, to_language, to_word FROM wordTable;")
         for d in WordBank.cur.fetchall():
-            print 'word:%s, count:%s' % (d[0], str(d[1]))
+            print '(%s, %s, %s, %s, %s)' % (d[0], str(d[1]), d[2], d[3], d[4])
+    def translateword(self, word, to_language):
+        # from_languageは自動的に判別されるので指定する必要が無い
+        translated_word = translator.translate(word, to_language)
+        detect_language = translator.detect_language(word)
+        return (detect_language, translated_word)
+        # return {"valueword" : translated_word, "languagetype" : detect_language}
  
  
 dbinstance = WordBank()
-wordline = (u'pol', u'amigo', u'ja')
+wordline = (u'pol', u'gracie', u'ja')
 done = dbinstance.registWord(wordline)
 dbinstance.printrecodelist()
 WordBank.con.commit()
 WordBank.con.close()
+
+
+

@@ -8,8 +8,8 @@ import urllib2
 import lxml.html
 import codecs
 from selenium import webdriver
-import sqlite3
 from microsofttranslator import Translator
+from wordBank import WordBank
 MAX_URL_COUNTS = 500
 translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
  
