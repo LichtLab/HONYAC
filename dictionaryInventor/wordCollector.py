@@ -121,8 +121,7 @@ def translateword(word, to_language):
     translated_word = translator.translate(word, to_language)
     detect_language = translator.detect_language(word)
     return {"valueword" : translated_word, "languagetype" : detect_language}
- 
- 
+
 if __name__ == '__main__':
     urls = [
     {'base' : 'http://www.correiobraziliense.com.br/'   ,'absolute' : 'http://www.correiobraziliense.com.br'},
@@ -140,19 +139,16 @@ if __name__ == '__main__':
     ]
     words = []
     words = extractwords_fromwebpagelist(testurl)
-    # connector = sqlite3.connect(sqlite_test.db)
+    dbinstance = WordBank()
     for word in words:
-        word_atom = translateword(word, 'ja')
-        print word_atom
-
-    # f = codecs.open('text.txt', 'w', 'utf-8')
-    # for word in words:
-    #     if not isinstance(word, unicode):
-    #         print 'not unicode error'
-    #         # raise 'not unicode error'
-    #     word = word + '\n'
-    #     f.write(word)
-    # f.close()
+        wordline = (u'pol', word, u'ja')
+        done = dbinstance.registWord(wordline)
+        # print done
+    WordBank.con.commit()
+    WordBank.con.close()
+        # print word
+        # word_atom = translateword(word, 'ja')
+        # print u'結果 %s' % word_atom
 
 
 

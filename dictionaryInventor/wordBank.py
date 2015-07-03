@@ -46,7 +46,7 @@ class WordBank:
                 tmp = self.translateword(targetword, u'ja')
                 detect_language = tmp[0]
                 translated_word = tmp[1]
-                insertwordline = (wordline[0], targetword, targetword_count, translated_word, wordline[2]) 
+                insertwordline = (detect_language, targetword, targetword_count, translated_word, wordline[2]) 
                 print insertwordline
                 WordBank.cur.execute("INSERT INTO wordTable(from_language, from_word, count, to_language, to_word) VALUES (?, ?, ?, ?, ?)", insertwordline)
                 print 'INSERTING DONE'
@@ -74,14 +74,12 @@ class WordBank:
         detect_language = translator.detect_language(word)
         return (detect_language, translated_word)
         # return {"valueword" : translated_word, "languagetype" : detect_language}
- 
- 
-dbinstance = WordBank()
-wordline = (u'pol', u'gracie', u'ja')
-done = dbinstance.registWord(wordline)
-dbinstance.printrecodelist()
-WordBank.con.commit()
-WordBank.con.close()
 
-
+ 
+# dbinstance = WordBank()
+# wordline = (u'pol', u'gracie', u'ja')
+# done = dbinstance.registWord(wordline)
+# dbinstance.printrecodelist()
+# WordBank.con.commit()
+# WordBank.con.close()
 
