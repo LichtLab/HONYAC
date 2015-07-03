@@ -7,8 +7,11 @@ import re
 import urllib2
 import lxml.html
 import codecs
+from selenium import webdriver
+import sqlite3
+from microsofttranslator import Translator
 MAX_URL_COUNTS = 500
- 
+translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
  
 '''
 入力　list(url)...url = 'http;//www.sekine.com/index'
@@ -16,41 +19,43 @@ MAX_URL_COUNTS = 500
 入力にあるページにあるpタグの言語を抽出して１単語ずつのリストにして返す
 '''
 def extractwords_fromwebpagelist(urls):
+    driver = webdriver.PhantomJS()
     returnwords = []
     # 各サイトの文字コードを判別
     detected = []
     for url in urls:
-        data = ''.join(urllib.urlopen(url).readlines())
-        guess = chardet.detect(data)
-        result = dict(url=url,data=data,**guess)
-        detected.append(result)
-    # 各サイトごとに特定タグの文字とリンク先を引っ張ってくる
-    for p in detected:
-        print '%s -> %s (%s)' % (p['url'], p['encoding'], p['confidence'])
-        unicoded = p['data'].decode(p['encoding'])  # デコード
-        d = pq(unicoded)
-        for link in d.find('p'):  # pタグで抜出し
-            #ここでstrになる可能性があるのでunicodeに変換する
-            link_title = pq(link).text()
-            if not isinstance(link_title, unicode):
-                guess = chardet.detect(link_title)
-                link_title = link_title.decode(guess['encoding'])
-            #スペースで区切る（単語区切り）
-            words = link_title.split();
-            for word in words:
-                # word = re.sub(re.compile("[!-/:-@[-`{-~]"), '', word)
-                word = re.sub(r'[!,\",#,$,%,&,\',\(,\),*,+,-,\,,.,/,:,;,<,=,>,?,@,\^,_,{,|,},~]+', "", word)
-                word = re.sub(r'[0-9,_]+', "", word)
-                word = word.lower()#小文字に変換
-                if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
-                    try:
-                        if not isinstance(word, unicode):
-                            print 'not unicode error'
-                            raise 'not unicode error'
-                        returnwords.append(word)
-                    except Exception, e:
-                        print 'exeption0'
-                        pass
+        driver.get(url)
+        root = lxml.html.fromstring(driver.page_source)
+        links = root.cssselect('p')
+        for link in links:  # pタグで抜出し
+            if not isinstance(link.text, unicode):
+                try:
+                    guess = chardet.detect(link.text)
+                    link.text = link.text.decode(guess['encoding'])
+                except Exception, e:
+                    # print 'encoding error'
+                    pass
+            try:
+                #スペースで区切る（単語区切り）
+                words = link.text.split();
+                for word in words:
+                    # print word
+                    word = re.sub(r'[!,\",#,$,%,&,\',\(,\),*,+,-,\,,.,/,:,;,<,=,>,?,@,\^,_,{,|,},~]+', "", word)
+                    word = re.sub(r'[0-9,_]+', "", word)
+                    word = word.lower()#小文字に変換
+                    if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
+                        try:
+                            if not isinstance(word, unicode):
+                                # print 'not unicode error'
+                                raise 'not unicode error'
+                            # print word
+                            returnwords.append(word)
+                        except Exception, e:
+                            # print 'exeption0'
+                            pass
+            except Exception, e:
+                # print 'splitting error'
+                pass
     return returnwords
  
 '''
@@ -85,24 +90,24 @@ def getlinkurllist(url_diclist):
                                     #print urlele
                                     newurl_dic = {'base': urlele, 'absolute': targeturl['absolute']}
                                     newurls.append(newurl_dic)
-                                    print len(newurls)
+                                    # print len(newurls)
                                     if len(newurls) > MAX_URL_COUNTS:
                                         raise Exception ('Interaption')
                             except Exception, e:
                                 if len(newurls) > MAX_URL_COUNTS:
-                                    print 'exception1'
+                                    # print 'exception1'
                                     raise Exception ('Interaption')
                                 else:
-                                    print 'exception1_sub'
+                                    # print 'exception1_sub'
                                     print len(newurls)
                                     pass
         except Exception, e:
             if len(newurls) > MAX_URL_COUNTS:
-                print 'exception2'
+                # print 'exception2'
                 break
             else:
-                print 'exception2_sub'
-                print len(newurls)
+                # print 'exception2_sub'
+                # print len(newurls)
                 pass
  
     #集めた新しいurlリンク集まりで単語パースするurlのリストを作る
@@ -110,6 +115,12 @@ def getlinkurllist(url_diclist):
     for url in newurls:
         wordextraction_targeturls.append(url['base'])
     return wordextraction_targeturls
+
+def translateword(word, to_language):
+    # from_languageは自動的に判別されるので指定する必要が無い
+    translated_word = translator.translate(word, to_language)
+    detect_language = translator.detect_language(word)
+    return {"valueword" : translated_word, "languagetype" : detect_language}
  
  
 if __name__ == '__main__':
@@ -129,14 +140,20 @@ if __name__ == '__main__':
     ]
     words = []
     words = extractwords_fromwebpagelist(testurl)
-    # for word in words:
-        # print type(word)
-        # print word
-    f = codecs.open('text.txt', 'w', 'utf-8')
+    # connector = sqlite3.connect(sqlite_test.db)
     for word in words:
-        if not isinstance(word, unicode):
-            print 'not unicode error'
-            # raise 'not unicode error'
-        word = word + '\n'
-        f.write(word)
-    f.close()
+        word_atom = translateword(word, 'ja')
+        print word_atom
+
+    # f = codecs.open('text.txt', 'w', 'utf-8')
+    # for word in words:
+    #     if not isinstance(word, unicode):
+    #         print 'not unicode error'
+    #         # raise 'not unicode error'
+    #     word = word + '\n'
+    #     f.write(word)
+    # f.close()
+
+
+
+
