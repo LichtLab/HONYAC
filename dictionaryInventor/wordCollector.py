@@ -46,9 +46,11 @@ def extractwords_fromwebpagelist(urls):
                     if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
                         try:
                             if not isinstance(word, unicode):
-                                # print 'not unicode error'
                                 raise 'not unicode error'
-                            # print word
+                            wordline = (u'pol', word, u'ja')
+                            done = dbinstance.registWord(wordline)
+                            print done
+                            WordBank.con.commit()
                             returnwords.append(word)
                         except Exception, e:
                             # print 'exeption0'
@@ -131,20 +133,19 @@ if __name__ == '__main__':
     {'base' : 'http://oglobo.globo.com/'                ,'absolute' : 'http://oglobo.globo.com'},
     {'base' : 'http://www.zerohora.com'                 ,'absolute' : 'http://www.zerohora.com'},
         ]
-    # targeturls = []
-    # targeturls = getlinkurllist(urls)
+    targeturls = []
+    targeturls = getlinkurllist(urls)
     print 'EXTRACTING BEGIN'
-    testurl = [
-    'http://www1.folha.uol.com.br/poder/2015/06/1650009-em-derrota-do-governo-senado-aprova-reajuste-para-servidores-do-judiciario.shtml',
-    ]
-    words = []
-    words = extractwords_fromwebpagelist(testurl)
+    # targeturls = [
+    # 'http://www1.folha.uol.com.br/poder/2015/06/1650009-em-derrota-do-governo-senado-aprova-reajuste-para-servidores-do-judiciario.shtml',
+    # ]
     dbinstance = WordBank()
-    for word in words:
-        wordline = (u'pol', word, u'ja')
-        done = dbinstance.registWord(wordline)
+    words = []
+    words = extractwords_fromwebpagelist(targeturls)
+    # for word in words:
+    #     wordline = (u'pol', word, u'ja')
+    #     done = dbinstance.registWord(wordline)
         # print done
-    WordBank.con.commit()
     WordBank.con.close()
         # print word
         # word_atom = translateword(word, 'ja')
