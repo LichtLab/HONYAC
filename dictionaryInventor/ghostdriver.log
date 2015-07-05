@@ -1,108 +1,53 @@
 PhantomJS is launching GhostDriver...
-[INFO  - 2015-07-04T12:38:24.306Z] GhostDriver - Main - running on port 55401
-[INFO  - 2015-07-04T12:38:25.135Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; PPC Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34","webSecurityEnabled":true}
-[INFO  - 2015-07-04T12:38:25.135Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.customHeaders:  - {}
-[INFO  - 2015-07-04T12:38:25.136Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"1.9.8","driverName":"ghostdriver","driverVersion":"1.1.0","platform":"mac-10.10 (Yosemite)-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2015-07-04T12:38:25.136Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 9029be80-2249-11e5-a15a-d781e082f02b
-[ERROR - 2015-07-04T12:39:50.050Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: SyntaxError: Parse error
-[ERROR - 2015-07-04T12:39:50.051Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-
-[ERROR - 2015-07-04T12:39:50.051Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: SyntaxError: Parse error
-[ERROR - 2015-07-04T12:39:50.051Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-
-[ERROR - 2015-07-04T12:40:58.514Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: SyntaxError: Parse error
-[ERROR - 2015-07-04T12:40:58.516Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-
-[INFO  - 2015-07-04T12:43:24.325Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2015-07-04T12:48:27.910Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[ERROR - 2015-07-04T12:48:28.380Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: Error: Syntax error, unrecognized expression: a:not([href^='http://click.uol.'],[data-clickuol],[onclick*='folha.clicks'])[href^='http']
-[ERROR - 2015-07-04T12:48:28.381Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  ut (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  nt (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/folha/js/5.4/common/common.js?2015062501:3487)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/folha/js/5.4/common/common.js?2015062501:3492)
-  (anonymous function) (http://static.folha.uol.com.br/folha/js/5.4/common/common.js?2015062501:3744)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-  (anonymous function) (http://static.folha.uol.com.br/library/jquery/1.8.3/jquery.js:2)
-[INFO  - 2015-07-04T12:53:27.914Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[ERROR - 2015-07-04T12:56:28.704Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: skype
-[ERROR - 2015-07-04T12:56:28.705Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://stat.correioweb.com.br/blogs2/barra/barra_novo.js:10)
-  (anonymous function) (http://stat.correioweb.com.br/blogs2/barra/barra_novo.js:166)
-[INFO  - 2015-07-04T12:58:27.922Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2015-07-04T13:03:27.923Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2015-07-04T13:08:27.923Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2015-07-04T13:13:27.924Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2015-07-04T13:18:27.925Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[ERROR - 2015-07-04T13:19:55.549Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById("publicidade-468x60-1").offsetWidth')
-[ERROR - 2015-07-04T13:19:55.550Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.df.superesportes.com.br/app/1,13/2015/07/03/noticia_maisesportes,314029/tocha-olimpica-e-exibida-e-revezamento-deve-atingir-ate-90-da-populacao-nacional.shtml:2340)
-[ERROR - 2015-07-04T13:19:55.629Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById("publicidade-320x50-1").offsetWidth')
-[ERROR - 2015-07-04T13:19:55.629Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.df.superesportes.com.br/app/1,13/2015/07/03/noticia_maisesportes,314029/tocha-olimpica-e-exibida-e-revezamento-deve-atingir-ate-90-da-populacao-nacional.shtml:2720)
-[ERROR - 2015-07-04T13:21:32.663Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById("publicidade-468x60-1").offsetWidth')
-[ERROR - 2015-07-04T13:21:32.664Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.df.superesportes.com.br/app/1,733/2015/07/04/noticia_mma,314073/ufc-projeta-receber-r-22-milhoes-na-edicao-189-e-ter-maior-renda-de-bilheteria-nos-eua.shtml:2355)
-[INFO  - 2015-07-04T13:23:36.429Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[ERROR - 2015-07-04T13:24:41.661Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: jQuery
-[ERROR - 2015-07-04T13:24:41.663Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://js.dzai.com.br/static/js/jquery.color.js:123)
-[ERROR - 2015-07-04T13:24:41.664Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: jQuery
-[ERROR - 2015-07-04T13:24:41.664Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://js.dzai.com.br/static/js/jquery-cookie.js:56)
-[ERROR - 2015-07-04T13:24:41.691Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: jQuery
-[ERROR - 2015-07-04T13:24:41.691Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/eixocapital/blog/eixocapital:227)
-  (anonymous function) (http://www.dzai.com.br/eixocapital/blog/eixocapital:257)
-[ERROR - 2015-07-04T13:24:51.954Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:24:51.955Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/eixocapital/blog/eixocapital:6999)
-[ERROR - 2015-07-04T13:25:42.825Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:25:42.827Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/blogdadad/blog/blogdaddad:14062)
-[ERROR - 2015-07-04T13:27:27.189Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:27:27.191Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/blogservidor/blog/blogservidor:12078)
-[ERROR - 2015-07-04T13:27:52.918Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: cssdropdown
-[ERROR - 2015-07-04T13:27:52.920Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/papodeconcurseiro/blog/papodeconcurseiro:10601)
-[ERROR - 2015-07-04T13:28:23.626Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:28:23.628Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/blog/blogdovicente:17576)
-[INFO  - 2015-07-04T13:28:36.431Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[ERROR - 2015-07-04T13:30:43.190Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:30:43.191Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/blogdadenise/blog/blogdadenise:16820)
-[ERROR - 2015-07-04T13:32:23.370Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:32:23.370Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/blogaodoze/blog/blogaodoze:11617)
-[ERROR - 2015-07-04T13:32:29.782Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: jQuery
-[ERROR - 2015-07-04T13:32:29.782Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://js.dzai.com.br/static/js/jquery.color.js:123)
-[ERROR - 2015-07-04T13:32:29.782Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: jQuery
-[ERROR - 2015-07-04T13:32:29.782Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://js.dzai.com.br/static/js/jquery-cookie.js:56)
-[ERROR - 2015-07-04T13:32:29.797Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: ReferenceError: Can't find variable: jQuery
-[ERROR - 2015-07-04T13:32:29.797Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/blog/dribledecorpo:224)
-  (anonymous function) (http://www.dzai.com.br/blog/dribledecorpo:254)
-[ERROR - 2015-07-04T13:32:55.135Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - msg: TypeError: 'null' is not an object (evaluating 'document.getElementById(arguments[ids]).getElementsByTagName')
-[ERROR - 2015-07-04T13:32:55.136Z] Session [9029be80-2249-11e5-a15a-d781e082f02b] - page.onError - stack:
-  (anonymous function) (http://www.dzai.com.br/static/js/chrome.js:176)
-  (anonymous function) (http://www.dzai.com.br/blog/dribledecorpo:18725)
-[INFO  - 2015-07-04T13:33:36.432Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2015-07-05T06:30:23.010Z] GhostDriver - Main - running on port 57606
+[INFO  - 2015-07-05T06:30:23.158Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; PPC Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34","webSecurityEnabled":true}
+[INFO  - 2015-07-05T06:30:23.158Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.customHeaders:  - {}
+[INFO  - 2015-07-05T06:30:23.158Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"1.9.8","driverName":"ghostdriver","driverVersion":"1.1.0","platform":"mac-10.10 (Yosemite)-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2015-07-05T06:30:23.158Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 50b15b00-22df-11e5-9bf5-c99533c3320c
+[ERROR - 2015-07-05T06:31:00.532Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: TypeError: 'undefined' is not an object (evaluating 'parent.document.getElementsByTagName')
+[ERROR - 2015-07-05T06:31:00.533Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://www.dumainteractiva.com/incs/lytebox.js:1270)
+  Lytebox (http://www.dumainteractiva.com/incs/lytebox.js:122)
+  (anonymous function) (http://www.dumainteractiva.com/incs/lytebox.js:1988)
+[ERROR - 2015-07-05T06:31:00.720Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: $lb
+[ERROR - 2015-07-05T06:31:00.720Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  initLytebox (http://www.dumainteractiva.com/incs/lytebox.js:1987)
+[ERROR - 2015-07-05T06:33:22.505Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: TypeError: 'undefined' is not an object (evaluating 'parent.document.getElementsByTagName')
+[ERROR - 2015-07-05T06:33:22.507Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://www.dumainteractiva.com/incs/lytebox.js:1270)
+  Lytebox (http://www.dumainteractiva.com/incs/lytebox.js:122)
+  (anonymous function) (http://www.dumainteractiva.com/incs/lytebox.js:1988)
+[ERROR - 2015-07-05T06:33:22.508Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: $lb
+[ERROR - 2015-07-05T06:33:22.508Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  initLytebox (http://www.dumainteractiva.com/incs/lytebox.js:1987)
+[ERROR - 2015-07-05T06:35:00.636Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: ANAJS_Publicidad
+[ERROR - 2015-07-05T06:35:00.636Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://quiosco.diaridegirona.orbyt.es/:189)
+[ERROR - 2015-07-05T06:35:17.395Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: nol_t
+[ERROR - 2015-07-05T06:35:17.396Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (https://www.iberempleos.es/:113)
+[INFO  - 2015-07-05T06:35:23.012Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[ERROR - 2015-07-05T06:37:30.393Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: google
+[ERROR - 2015-07-05T06:37:30.395Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://www.diaridegirona.cat/servicios/transit/transit-a-girona.html:382)
+[ERROR - 2015-07-05T06:37:46.248Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: TypeError: 'undefined' is not an object (evaluating 'ciudades[i]= $(this).text()')
+[ERROR - 2015-07-05T06:37:46.249Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://www.diaridegirona.cat/servicios/transit/transit-a-girona.html:511)
+  (anonymous function) (http://www.diaridegirona.cat/elementosWeb/js/servicios.js:16)
+  (anonymous function) (http://www.diaridegirona.cat/elementosWeb/js/servicios.js:16)
+  (anonymous function) (http://www.diaridegirona.cat/servicios/transit/transit-a-girona.html:520)
+  (anonymous function) (http://www.diaridegirona.cat/elementosWeb/js/servicios.js:16)
+  (anonymous function) (http://www.diaridegirona.cat/elementosWeb/js/servicios.js:16)
+  (anonymous function) (http://www.diaridegirona.cat/servicios/transit/transit-a-girona.html:521)
+  Z (http://www.diaridegirona.cat/elementosWeb/js/servicios.js:16)
+  (anonymous function) (http://www.diaridegirona.cat/elementosWeb/js/servicios.js:16)
+[ERROR - 2015-07-05T06:37:54.040Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: google
+[ERROR - 2015-07-05T06:37:54.041Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://oci.diaridegirona.cat/js/google_maps_front.js?v=1367340022:6)
+[ERROR - 2015-07-05T06:38:09.002Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: OAS_AD
+[ERROR - 2015-07-05T06:38:09.002Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://oci.diaridegirona.cat/tv/:119)
+[ERROR - 2015-07-05T06:38:55.854Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - msg: ReferenceError: Can't find variable: google
+[ERROR - 2015-07-05T06:38:55.854Z] Session [50b15b00-22df-11e5-9bf5-c99533c3320c] - page.onError - stack:
+  (anonymous function) (http://oci.diaridegirona.cat/js/google_maps_front.js?v=1367340022:6)
+[INFO  - 2015-07-05T06:40:23.012Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW

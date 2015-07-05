@@ -40,8 +40,12 @@ def extractwords_fromwebpagelist(urls):
                 words = link.text.split();
                 for word in words:
                     # print word
-                    word = re.sub(r'[!,\",#,$,%,&,\',\(,\),*,+,-,\,,.,/,:,;,<,=,>,?,@,\^,_,{,|,},~]+', "", word)
+                    word = re.sub(r'[!,\",#,$,%,&,\',\(,\),“,”,‘,’,\*,+,\-,\,,.,/,:,;,<,=,>,?,@,\^,_,{,|,},~]+', "", word)
                     word = re.sub(r'[0-9,_]+', "", word)
+                    word = string.replace(word, u'“', u'')
+                    word = string.replace(word, u'”', u'')
+                    word = string.replace(word, u'`', u'')
+                    word = string.replace(word, u'‘', u'')
                     word = word.lower()#小文字に変換
                     if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
                         try:
@@ -126,12 +130,8 @@ def translateword(word, to_language):
 
 if __name__ == '__main__':
     urls = [
-    {'base' : 'http://www.correiobraziliense.com.br/'   ,'absolute' : 'http://www.correiobraziliense.com.br'},
-    {'base' : 'http://www.em.com.br/'                   ,'absolute' : 'http://www.em.com.br'},
-    {'base' : 'http://www.estadao.com.br/'              ,'absolute' : 'http://www.estadao.com.br'},
-    {'base' : 'http://www.folha.com/'                   ,'absolute' : 'http://www.folha.com'},
-    {'base' : 'http://oglobo.globo.com/'                ,'absolute' : 'http://oglobo.globo.com'},
-    {'base' : 'http://www.zerohora.com'                 ,'absolute' : 'http://www.zerohora.com'},
+    {'base' : 'http://www.diaridegirona.cat/'           ,'absolute' : 'http://www.diaridegirona.cat'},
+    {'base' : 'http://www.diariodenavarra.es/'          ,'absolute' : 'http://www.diariodenavarra.es'},
         ]
     targeturls = []
     targeturls = getlinkurllist(urls)
