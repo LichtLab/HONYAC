@@ -17,6 +17,12 @@
 
 package edu.sfsu.cs.orange.ocr.camera;
 
+import java.io.ByteArrayOutputStream;
+
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Handler;
@@ -54,6 +60,7 @@ final class PreviewCallback implements Camera.PreviewCallback {
     if (cameraResolution != null && thePreviewHandler != null) {
       Message message = thePreviewHandler.obtainMessage(previewMessage, cameraResolution.x,
           cameraResolution.y, data);
+      Log.d(TAG, "Got preview callback, previewMessage cameraResolution.x:"+cameraResolution.x+" cameraResolution.y"+cameraResolution.y);
       message.sendToTarget();
       previewHandler = null;
     } else {

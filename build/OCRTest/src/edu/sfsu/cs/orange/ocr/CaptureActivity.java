@@ -19,6 +19,8 @@ package edu.sfsu.cs.orange.ocr;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,6 +34,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -54,9 +58,16 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -167,12 +178,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private SurfaceView surfaceView;
   private SurfaceHolder surfaceHolder;
   private TextView statusViewBottom;
-  private TextView statusViewTop;
-  private TextView ocrResultView;
-  private TextView translationView;
+//  private TextView statusViewTop;
+//  private TextView ocrResultView;
+//  private TextView translationView;
   private View cameraButtonView;
-  private View resultView;
-  private View progressView;
+//  private View resultView;
+//  private View progressView;
   private OcrResult lastResult;
   private Bitmap lastBitmap;
   private boolean hasSurface;
@@ -226,12 +237,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     setContentView(R.layout.capture);
     viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
     cameraButtonView = findViewById(R.id.camera_button_view);
-    resultView = findViewById(R.id.result_view);
+//    resultView = findViewById(R.id.result_view);
     
     statusViewBottom = (TextView) findViewById(R.id.status_view_bottom);
     registerForContextMenu(statusViewBottom);
-    statusViewTop = (TextView) findViewById(R.id.status_view_top);
-    registerForContextMenu(statusViewTop);
+//    statusViewTop = (TextView) findViewById(R.id.status_view_top);
+//    registerForContextMenu(statusViewTop);
     
     handler = null;
     lastResult = null;
@@ -244,12 +255,23 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       shutterButton.setOnShutterButtonListener(this);
     }
    
-    ocrResultView = (TextView) findViewById(R.id.ocr_result_text_view);
-    registerForContextMenu(ocrResultView);
-    translationView = (TextView) findViewById(R.id.translation_text_view);
-    registerForContextMenu(translationView);
+//    ocrResultView = (TextView) findViewById(R.id.ocr_result_text_view);
+//    registerForContextMenu(ocrResultView);
+//    translationView = (TextView) findViewById(R.id.translation_text_view);
+//    registerForContextMenu(translationView);
     
-    progressView = (View) findViewById(R.id.indeterminate_progress_indicator_view);
+//    progressView = (View) findViewById(R.id.indeterminate_progress_indicator_view);
+    
+    Button menuButton = (Button) findViewById(R.id.menu_button);
+    menuButton.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent().setClass(CaptureActivity.this, PreferencesActivity.class);
+		      startActivity(intent);
+		}
+	});
 
     cameraManager = new CameraManager(getApplication());
     viewfinderView.setCameraManager(cameraManager);
@@ -733,52 +755,57 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     // Turn off capture-related UI elements
     shutterButton.setVisibility(View.GONE);
     statusViewBottom.setVisibility(View.GONE);
-    statusViewTop.setVisibility(View.GONE);
+//    statusViewTop.setVisibility(View.GONE);
+
+	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+    if(parentView.getChildCount() > 0) {
+  	  parentView.removeAllViews();
+    }
     cameraButtonView.setVisibility(View.GONE);
     viewfinderView.setVisibility(View.GONE);
-    resultView.setVisibility(View.VISIBLE);
+//    resultView.setVisibility(View.VISIBLE);
 
-    ImageView bitmapImageView = (ImageView) findViewById(R.id.image_view);
+//    ImageView bitmapImageView = (ImageView) findViewById(R.id.image_view);
     lastBitmap = ocrResult.getBitmap();
-    if (lastBitmap == null) {
-      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-          R.drawable.ic_launcher));
-    } else {
-      bitmapImageView.setImageBitmap(lastBitmap);
-    }
+//    if (lastBitmap == null) {
+//      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+//          R.drawable.ic_launcher));
+//    } else {
+//      bitmapImageView.setImageBitmap(lastBitmap);
+//    }
 
     // Display the recognized text
-    TextView sourceLanguageTextView = (TextView) findViewById(R.id.source_language_text_view);
-    sourceLanguageTextView.setText(sourceLanguageReadable);
-    TextView ocrResultTextView = (TextView) findViewById(R.id.ocr_result_text_view);
-    ocrResultTextView.setText(ocrResult.getText());
+//    TextView sourceLanguageTextView = (TextView) findViewById(R.id.source_language_text_view);
+//    sourceLanguageTextView.setText(sourceLanguageReadable);
+//    TextView ocrResultTextView = (TextView) findViewById(R.id.ocr_result_text_view);
+//    ocrResultTextView.setText(ocrResult.getText());
     // Crudely scale betweeen 22 and 32 -- bigger font for shorter text
     int scaledSize = Math.max(22, 32 - ocrResult.getText().length() / 4);
-    ocrResultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
+//    ocrResultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
 
-    TextView translationLanguageLabelTextView = (TextView) findViewById(R.id.translation_language_label_text_view);
-    TextView translationLanguageTextView = (TextView) findViewById(R.id.translation_language_text_view);
-    TextView translationTextView = (TextView) findViewById(R.id.translation_text_view);
+//    TextView translationLanguageLabelTextView = (TextView) findViewById(R.id.translation_language_label_text_view);
+//    TextView translationLanguageTextView = (TextView) findViewById(R.id.translation_language_text_view);
+//    TextView translationTextView = (TextView) findViewById(R.id.translation_text_view);
     if (isTranslationActive) {
       // Handle translation text fields
-      translationLanguageLabelTextView.setVisibility(View.VISIBLE);
-      translationLanguageTextView.setText(targetLanguageReadable);
-      translationLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL), Typeface.NORMAL);
-      translationLanguageTextView.setVisibility(View.VISIBLE);
-
-      // Activate/re-activate the indeterminate progress indicator
-      translationTextView.setVisibility(View.GONE);
-      progressView.setVisibility(View.VISIBLE);
+//      translationLanguageLabelTextView.setVisibility(View.VISIBLE);
+//      translationLanguageTextView.setText(targetLanguageReadable);
+//      translationLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL), Typeface.NORMAL);
+//      translationLanguageTextView.setVisibility(View.VISIBLE);
+//
+//      // Activate/re-activate the indeterminate progress indicator
+//      translationTextView.setVisibility(View.GONE);
+//      progressView.setVisibility(View.VISIBLE);
       setProgressBarVisibility(true);
       
       // Get the translation asynchronously
       new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
           ocrResult.getText()).execute();
     } else {
-      translationLanguageLabelTextView.setVisibility(View.GONE);
-      translationLanguageTextView.setVisibility(View.GONE);
-      translationTextView.setVisibility(View.GONE);
-      progressView.setVisibility(View.GONE);
+//      translationLanguageLabelTextView.setVisibility(View.GONE);
+//      translationLanguageTextView.setVisibility(View.GONE);
+//      translationTextView.setVisibility(View.GONE);
+//      progressView.setVisibility(View.GONE);
       setProgressBarVisibility(false);
     }
     return true;
@@ -808,13 +835,100 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     
     if (CONTINUOUS_DISPLAY_RECOGNIZED_TEXT) {
       // Display the recognized text on the screen
-      statusViewTop.setText(ocrResult.getText());
-      int scaledSize = Math.max(22, 32 - ocrResult.getText().length() / 4);
-      statusViewTop.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
-      statusViewTop.setTextColor(Color.BLACK);
-      statusViewTop.setBackgroundResource(R.color.status_top_text_background);
+      List<Rect> wordRectLists = ocrResult.getWordBoundingBoxes();
+      String recogText = ocrResult.getText();
+      String[] recogLineText = recogText.split("\n");
+      ArrayList<String> textList = new ArrayList<String>();
+      for(int i = 0; i < recogLineText.length; i++) {
+    	  String[] texts = recogLineText[i].split(" ");
+    	  for(int j = 0; j < texts.length; j++) {
+    		  textList.add(texts[j]);
+    	  }
+      }
+      
 
-      statusViewTop.getBackground().setAlpha(meanConfidence * (255 / 100));
+      Rect frame = cameraManager.getFramingRect();
+      int offsetLeft = frame.left;
+      int offsetTop = frame.top;
+      Rect previewFrame = cameraManager.getFramingRectInPreview();
+      float scaleX = frame.width() / (float) previewFrame.width();
+      float scaleY = frame.height() / (float) previewFrame.height();
+      
+      RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+      if(parentView.getChildCount() > 0) {
+    	  parentView.removeAllViews();
+      }
+      int wordCount = wordRectLists.size();
+      for(int i = 0; i < wordCount && i < textList.size(); i++) {
+    	  Rect textRect = wordRectLists.get(i);
+    	  Rect wordRect = new Rect((int)(textRect.left*scaleX), (int)(textRect.top*scaleY), (int)(textRect.right*scaleX), (int)(textRect.bottom*scaleY));
+    	  final EditText recogTextView = new EditText(this);
+    	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, wordRect.height());
+    	  recogTextView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
+              @Override
+              public boolean onPreDraw() {
+                  // このタイミングでListenerを解除しておかないと何度もイベントが発生しうる
+            	  recogTextView.getViewTreeObserver().removeOnPreDrawListener(this);
+                   
+                  // View描写時のイベント
+            	  int viewHeight = recogTextView.getHeight();
+            	  int viewWidth = recogTextView.getWidth();	
+            	  // テキストサイズ
+            	  float textSize = recogTextView.getTextSize();
+
+            	  // Paintにテキストサイズ設定
+            	  Paint paint = new Paint();
+            	  paint.setTextSize(textSize);
+            	  
+            	  // テキストの縦幅取得
+            	  FontMetrics fm = paint.getFontMetrics();
+            	  float textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
+
+            	  // テキストの横幅取得
+            	  float textWidth = paint.measureText(recogTextView.getText().toString());	
+            	  
+            	  while (viewHeight < textHeight | viewWidth < textWidth)
+            	  {
+            	  	// テキストサイズをデクリメント
+            	  	textSize--;
+
+            	  	// Paintにテキストサイズ設定
+            	  	paint.setTextSize(textSize);
+
+            	  	// テキストの縦幅を再取得
+            	  	fm = paint.getFontMetrics();
+            	  	textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
+
+            	  	// テキストの横幅を再取得
+            	  	textWidth = paint.measureText(recogTextView.getText().toString());
+            	  }
+
+            	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                  // trueを返さないと描写されない
+                  return true;
+              }
+          });
+    	  recogTextView.setPadding(0, 0, 0, 0);
+    	  recogTextView.setTextColor(Color.BLACK);
+    	  recogTextView.setBackgroundResource(R.color.status_top_text_background);
+    	  recogTextView.getBackground().setAlpha(meanConfidence * (255 / 100));
+    	  recogTextView.setText(textList.get(i));
+    	  recogTextView.setGravity(Gravity.CENTER);
+    	  LayoutParams params = new LayoutParams(wordRect.width(), LayoutParams.WRAP_CONTENT);
+    	  MarginLayoutParams margine = (MarginLayoutParams)params;
+    	  margine.setMargins(wordRect.left+offsetLeft, wordRect.top+offsetTop+wordRect.height(), 0, 0);
+    	  recogTextView.setLayoutParams(margine);
+    	  parentView.addView(recogTextView);
+      }
+      
+    	
+//      statusViewTop.setText(ocrResult.getText());
+//      int scaledSize = Math.max(22, 32 - ocrResult.getText().length() / 4);
+//      statusViewTop.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
+//      statusViewTop.setTextColor(Color.BLACK);
+//      statusViewTop.setBackgroundResource(R.color.status_top_text_background);
+//
+//      statusViewTop.getBackground().setAlpha(meanConfidence * (255 / 100));
     }
 
     if (CONTINUOUS_DISPLAY_METADATA) {
@@ -836,8 +950,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     viewfinderView.removeResultText();
     
     // Reset the text in the recognized text box.
-    statusViewTop.setText("");
-
+//    statusViewTop.setText("");
+	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+    if(parentView.getChildCount() > 0) {
+  	  parentView.removeAllViews();
+    }
+    
     if (CONTINUOUS_DISPLAY_METADATA) {
       // Color text delimited by '-' as red.
       statusViewBottom.setTextSize(14);
@@ -881,13 +999,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public void onCreateContextMenu(ContextMenu menu, View v,
       ContextMenuInfo menuInfo) {
     super.onCreateContextMenu(menu, v, menuInfo);
-    if (v.equals(ocrResultView)) {
-      menu.add(Menu.NONE, OPTIONS_COPY_RECOGNIZED_TEXT_ID, Menu.NONE, "Copy recognized text");
-      menu.add(Menu.NONE, OPTIONS_SHARE_RECOGNIZED_TEXT_ID, Menu.NONE, "Share recognized text");
-    } else if (v.equals(translationView)){
-      menu.add(Menu.NONE, OPTIONS_COPY_TRANSLATED_TEXT_ID, Menu.NONE, "Copy translated text");
-      menu.add(Menu.NONE, OPTIONS_SHARE_TRANSLATED_TEXT_ID, Menu.NONE, "Share translated text");
-    }
+//    if (v.equals(ocrResultView)) {
+//      menu.add(Menu.NONE, OPTIONS_COPY_RECOGNIZED_TEXT_ID, Menu.NONE, "Copy recognized text");
+//      menu.add(Menu.NONE, OPTIONS_SHARE_RECOGNIZED_TEXT_ID, Menu.NONE, "Share recognized text");
+//    } else if (v.equals(translationView)){
+//      menu.add(Menu.NONE, OPTIONS_COPY_TRANSLATED_TEXT_ID, Menu.NONE, "Copy translated text");
+//      menu.add(Menu.NONE, OPTIONS_SHARE_TRANSLATED_TEXT_ID, Menu.NONE, "Share translated text");
+//    }
   }
 
   @Override
@@ -896,7 +1014,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     switch (item.getItemId()) {
 
     case OPTIONS_COPY_RECOGNIZED_TEXT_ID:
-        clipboardManager.setText(ocrResultView.getText());
+//        clipboardManager.setText(ocrResultView.getText());
       if (clipboardManager.hasText()) {
         Toast toast = Toast.makeText(this, "Text copied.", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM, 0, 0);
@@ -906,11 +1024,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     case OPTIONS_SHARE_RECOGNIZED_TEXT_ID:
     	Intent shareRecognizedTextIntent = new Intent(android.content.Intent.ACTION_SEND);
     	shareRecognizedTextIntent.setType("text/plain");
-    	shareRecognizedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, ocrResultView.getText());
+//    	shareRecognizedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, ocrResultView.getText());
     	startActivity(Intent.createChooser(shareRecognizedTextIntent, "Share via"));
     	return true;
     case OPTIONS_COPY_TRANSLATED_TEXT_ID:
-        clipboardManager.setText(translationView.getText());
+//        clipboardManager.setText(translationView.getText());
       if (clipboardManager.hasText()) {
         Toast toast = Toast.makeText(this, "Text copied.", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM, 0, 0);
@@ -920,7 +1038,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     case OPTIONS_SHARE_TRANSLATED_TEXT_ID:
     	Intent shareTranslatedTextIntent = new Intent(android.content.Intent.ACTION_SEND);
     	shareTranslatedTextIntent.setType("text/plain");
-    	shareTranslatedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, translationView.getText());
+//    	shareTranslatedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, translationView.getText());
     	startActivity(Intent.createChooser(shareTranslatedTextIntent, "Share via"));
     	return true;
     default:
@@ -932,7 +1050,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
    * Resets view elements.
    */
   private void resetStatusView() {
-    resultView.setVisibility(View.GONE);
+//    resultView.setVisibility(View.GONE);
     if (CONTINUOUS_DISPLAY_METADATA) {
       statusViewBottom.setText("");
       statusViewBottom.setTextSize(14);
@@ -940,9 +1058,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       statusViewBottom.setVisibility(View.VISIBLE);
     }
     if (CONTINUOUS_DISPLAY_RECOGNIZED_TEXT) {
-      statusViewTop.setText("");
-      statusViewTop.setTextSize(14);
-      statusViewTop.setVisibility(View.VISIBLE);
+    	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+        if(parentView.getChildCount() > 0) {
+      	  parentView.removeAllViews();
+        }
+//      statusViewTop.setText("");
+//      statusViewTop.setTextSize(14);
+//      statusViewTop.setVisibility(View.VISIBLE);
     }
     viewfinderView.setVisibility(View.VISIBLE);
     cameraButtonView.setVisibility(View.VISIBLE);

@@ -14,23 +14,25 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- -->
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="fill_parent"
-             android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-  <SurfaceView android:id="@+id/preview_view"
-               android:layout_width="fill_parent"
-               android:layout_height="fill_parent"
-               android:layout_centerInParent="true"/>
-     
-  <edu.sfsu.cs.orange.ocr.ViewfinderView
-      android:id="@+id/viewfinder_view"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:background="#0000"/>
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true" />
 
-  <LinearLayout android:id="@+id/result_view"
+    <edu.sfsu.cs.orange.ocr.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#0000" />
+
+    <!--
+<LinearLayout android:id="@+id/result_view"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -107,7 +109,8 @@
         </LinearLayout>
 
       </LinearLayout>
-
+    -->
+    <!--
       <ScrollView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content">
@@ -152,17 +155,24 @@
           
         </LinearLayout>
 
-      </ScrollView>
+      </ScrollView> 
 
     </LinearLayout>
-
   </LinearLayout>
+    -->
 
-  <RelativeLayout android:id="@+id/camera_button_view"
-           android:layout_width="fill_parent"
-           android:layout_height="fill_parent">
+    <RelativeLayout
+        android:id="@+id/camera_button_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    <TextView android:id="@+id/status_view_top"
+        <RelativeLayout
+            android:id="@+id/recog_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <!--
+         <TextView android:id="@+id/status_view_top"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"    
               android:layout_alignParentTop="true"
@@ -172,33 +182,50 @@
               android:textSize="14sp"
               android:autoLink="web"
               android:clickable="true" />
- 
-    <edu.sfsu.cs.orange.ocr.camera.ShutterButton
-              android:id="@+id/shutter_button"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@drawable/shutter_button"
-              android:clickable="true"
-              android:focusable="true"
-              android:layout_alignParentRight="true"
-              android:gravity="center_vertical"
-              android:layout_marginRight="8dip"
-              android:layout_marginTop="8dip"
-              android:scaleType="center"
-              android:visibility="gone" /> 
-     
-    <TextView android:id="@+id/status_view_bottom"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:background="#0000"
-              android:text=""
-              android:textColor="@color/status_text"
-              android:textSize="14sp"
-              android:autoLink="web"   
-              android:clickable="true" />
-     
-     <!-- 
+        -->
+
+        <edu.sfsu.cs.orange.ocr.camera.ShutterButton
+            android:id="@+id/shutter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/shutter_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:scaleType="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/status_view_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:autoLink="web"
+            android:background="#0000"
+            android:clickable="true"
+            android:text=""
+            android:textColor="@color/status_text"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dip"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/ic_launcher"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:textOff=""
+            android:textOn="" />
+
+        <!--
      <ToggleButton android:id="@+id/torch_button"
 		      android:layout_width="wrap_content" 
 		      android:layout_height="wrap_content"
@@ -212,8 +239,8 @@
 		      android:layout_marginRight="8dip" 
 		      android:layout_marginBottom="8dip"
 		      android:scaleType="center" />
-     -->
-     
-  </RelativeLayout>
+        -->
+
+    </RelativeLayout>
 
 </FrameLayout>

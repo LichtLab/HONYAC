@@ -33,9 +33,9 @@ public final class TranslateAsyncTask extends AsyncTask<String, String, Boolean>
   private static final String TAG = TranslateAsyncTask.class.getSimpleName();
 
   private CaptureActivity activity;
-  private TextView textView;
-  private View progressView;
-  private TextView targetLanguageTextView;
+//  private TextView textView;
+//  private View progressView;
+//  private TextView targetLanguageTextView;
   private String sourceLanguageCode;
   private String targetLanguageCode;
   private String sourceText;
@@ -47,9 +47,9 @@ public final class TranslateAsyncTask extends AsyncTask<String, String, Boolean>
     this.sourceLanguageCode = sourceLanguageCode;
     this.targetLanguageCode = targetLanguageCode;
     this.sourceText = sourceText;
-    textView = (TextView) activity.findViewById(R.id.translation_text_view);
-    progressView = (View) activity.findViewById(R.id.indeterminate_progress_indicator_view);
-    targetLanguageTextView = (TextView) activity.findViewById(R.id.translation_language_text_view);
+//    textView = (TextView) activity.findViewById(R.id.translation_text_view);
+//    progressView = (View) activity.findViewById(R.id.indeterminate_progress_indicator_view);
+//    targetLanguageTextView = (TextView) activity.findViewById(R.id.translation_language_text_view);
   }
   
   @Override
@@ -70,27 +70,27 @@ public final class TranslateAsyncTask extends AsyncTask<String, String, Boolean>
     
     if (result) {
       //Log.i(TAG, "SUCCESS");
-      if (targetLanguageTextView != null) {
-        targetLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL), Typeface.NORMAL);
-      }
-      textView.setText(translatedText);
-      textView.setVisibility(View.VISIBLE);
-      textView.setTextColor(activity.getResources().getColor(R.color.translation_text));
+//      if (targetLanguageTextView != null) {
+//        targetLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL), Typeface.NORMAL);
+//      }
+//      textView.setText(translatedText);
+//      textView.setVisibility(View.VISIBLE);
+//      textView.setTextColor(activity.getResources().getColor(R.color.translation_text));
 
       // Crudely scale betweeen 22 and 32 -- bigger font for shorter text
       int scaledSize = Math.max(22, 32 - translatedText.length() / 4);
-      textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
+//      textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
 
     } else {
       Log.e(TAG, "FAILURE");
-      targetLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.ITALIC);
-      targetLanguageTextView.setText("Unavailable");
+//      targetLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.ITALIC);
+//      targetLanguageTextView.setText("Unavailable");
 
     }
     
     // Turn off the indeterminate progress indicator
-    if (progressView != null) {
-      progressView.setVisibility(View.GONE);
-    }
+//    if (progressView != null) {
+//      progressView.setVisibility(View.GONE);
+//    }
   }
 }

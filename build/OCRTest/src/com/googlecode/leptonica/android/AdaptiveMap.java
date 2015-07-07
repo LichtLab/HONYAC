@@ -25,7 +25,7 @@ public class AdaptiveMap {
     static {
         System.loadLibrary("lept");
     }
-
+    
     // Background normalization constants
 
     /** Image reduction value; possible values are 1, 2, 4, 8 */
