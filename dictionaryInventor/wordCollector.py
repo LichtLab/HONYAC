@@ -10,7 +10,8 @@ import codecs
 from selenium import webdriver
 from microsofttranslator import Translator
 from wordBank import WordBank
-MAX_URL_COUNTS = 500
+import traceback
+MAX_URL_COUNTS = 400
 translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
  
 '''
@@ -24,6 +25,7 @@ def extractwords_fromwebpagelist(urls):
     # 各サイトの文字コードを判別
     detected = []
     for url in urls:
+        print 'PARSE START'
         driver.get(url)
         root = lxml.html.fromstring(driver.page_source)
         links = root.cssselect('p')
@@ -57,10 +59,10 @@ def extractwords_fromwebpagelist(urls):
                             WordBank.con.commit()
                             returnwords.append(word)
                         except Exception, e:
-                            # print 'exeption0'
+                            print traceback.format_exc()
                             pass
             except Exception, e:
-                # print 'splitting error'
+                print traceback.format_exc()
                 pass
     return returnwords
  
@@ -130,8 +132,9 @@ def translateword(word, to_language):
 
 if __name__ == '__main__':
     urls = [
-    {'base' : 'http://www.diaridegirona.cat/'           ,'absolute' : 'http://www.diaridegirona.cat'},
-    {'base' : 'http://www.diariodenavarra.es/'          ,'absolute' : 'http://www.diariodenavarra.es'},
+    {'base' : 'http://www.lemonde.fr/'                ,'absolute' : 'http://www.lemonde.fr'},
+    {'base' : 'http://www.la-croix.com/'              ,'absolute' : 'http://www.la-croix.com'},
+    {'base' : 'http://www.liberation.fr/'             ,'absolute' : 'http://www.liberation.fr'},
         ]
     targeturls = []
     targeturls = getlinkurllist(urls)
