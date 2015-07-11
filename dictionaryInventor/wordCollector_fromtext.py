@@ -7,11 +7,14 @@ import re
 import codecs
 from wordBank import WordBank
 import traceback
+import unicodedata
+
+def strip_accents(s):
+   return ''.join(c for c in unicodedata.normalize('NFD', s)
+                  if unicodedata.category(c) != 'Mn')
 
 if __name__ == '__main__':
     dbinstance = WordBank()
-
-
     f = open('portugues_words.txt')
     line = f.readline()
     while line:
@@ -28,6 +31,9 @@ if __name__ == '__main__':
             word = string.replace(word, u'`', u'')
             word = string.replace(word, u'‘', u'')
             word = word.lower()#小文字に変換
+            #ヨーロッパアクセント文字の変換
+            word = strip_accents(word)
+            print word
             if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
                 try:
                     if not isinstance(word, unicode):

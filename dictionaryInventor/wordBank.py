@@ -3,6 +3,7 @@ import sqlite3
 import chardet
 import traceback
 from microsofttranslator import Translator
+import re
 translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
 
 class WordBank:
@@ -34,11 +35,10 @@ class WordBank:
      
     # wordline = ('from_language', 'from_word', 'to_language')
     def registWord(self, wordline):
-        # 登録する単語が既に無いかのチェック
         try:
+            # 登録する単語が既に無いかのチェック
             targetword = wordline[1]
             isNew = self.isNewWord(targetword)
-            # print 'isNewword:%s' % COUNT
             if isNew == True:
                 # 新しい単語をDBに保存
                 targetword_count = 1
@@ -46,6 +46,9 @@ class WordBank:
                 tmp = self.translateword(targetword, u'ja')
                 detect_language = tmp[0]
                 translated_word = tmp[1]
+                #翻訳結果にアルファベットが含まれていたら翻訳ミスと断定して登録しない
+                if re.search("[a-z]",translated_word):
+                    raise Excetion,'tranlation err'
                 insertwordline = (detect_language, targetword, targetword_count, translated_word, wordline[2]) 
                 print insertwordline
                 WordBank.cur.execute("INSERT INTO wordTable(from_language, from_word, count, to_language, to_word) VALUES (?, ?, ?, ?, ?)", insertwordline)
