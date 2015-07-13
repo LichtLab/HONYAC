@@ -43,7 +43,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
+import android.text.Editable;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -63,6 +65,7 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -393,6 +396,28 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       // We already have the engine initialized, so just start the camera.
       resumeOCR();
     }
+    
+    ((EditText)findViewById(R.id.text_image_recog)).addTextChangedListener(new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			// TODO Auto-generated method stub
+			translate(s.toString());
+		}
+	});
   }
   
   /** 
@@ -801,11 +826,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //      // Activate/re-activate the indeterminate progress indicator
 //      translationTextView.setVisibility(View.GONE);
 //      progressView.setVisibility(View.VISIBLE);
-      setProgressBarVisibility(true);
+//      setProgressBarVisibility(true);
       
       // Get the translation asynchronously
-      new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
-          ocrResult.getText()).execute();
+//      new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
+//          ocrResult.getText()).execute();
+    	translate(ocrResult.getText());
     } else {
 //      translationLanguageLabelTextView.setVisibility(View.GONE);
 //      translationLanguageTextView.setVisibility(View.GONE);
@@ -861,10 +887,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       
 //      RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
       EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
-      
+
+      if(!ocrRecogEditText.getText().toString().equals(recogText)) {
 	  ocrRecogEditText.setText(recogText);
-	  
-	  //TODO –|–ó
+      }
+	  //TODO ç¿»è¨³
+	  translate(recogText);
 	  
 //      
 //      if(parentView.getChildCount() > 0) {
@@ -879,44 +907,44 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //    	  recogTextView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
 //              @Override
 //              public boolean onPreDraw() {
-//                  // ‚±‚Ìƒ^ƒCƒ~ƒ“ƒO‚ÅListener‚ğ‰ğœ‚µ‚Ä‚¨‚©‚È‚¢‚Æ‰½“x‚àƒCƒxƒ“ƒg‚ª”­¶‚µ‚¤‚é
+//                  // ã“ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§Listenerã‚’è§£é™¤ã—ã¦ãŠã‹ãªã„ã¨ä½•åº¦ã‚‚ã‚¤ãƒ™ãƒ³ãƒˆãŒç™ºç”Ÿã—ã†ã‚‹
 //            	  recogTextView.getViewTreeObserver().removeOnPreDrawListener(this);
 //                   
-//                  // View•`Ê‚ÌƒCƒxƒ“ƒg
+//                  // Viewæå†™æ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆ
 //            	  int viewHeight = recogTextView.getHeight();
 //            	  int viewWidth = recogTextView.getWidth();	
-//            	  // ƒeƒLƒXƒgƒTƒCƒY
+//            	  // ãƒ†ã‚­ã‚¹ãƒˆã‚µã‚¤ã‚º
 //            	  float textSize = recogTextView.getTextSize();
 //
-//            	  // Paint‚ÉƒeƒLƒXƒgƒTƒCƒYİ’è
+//            	  // Paintã«ãƒ†ã‚­ã‚¹ãƒˆã‚µã‚¤ã‚ºè¨­å®š
 //            	  Paint paint = new Paint();
 //            	  paint.setTextSize(textSize);
 //            	  
-//            	  // ƒeƒLƒXƒg‚Ìc•æ“¾
+//            	  // ãƒ†ã‚­ã‚¹ãƒˆã®ç¸¦å¹…å–å¾—
 //            	  FontMetrics fm = paint.getFontMetrics();
 //            	  float textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
 //
-//            	  // ƒeƒLƒXƒg‚Ì‰¡•æ“¾
+//            	  // ãƒ†ã‚­ã‚¹ãƒˆã®æ¨ªå¹…å–å¾—
 //            	  float textWidth = paint.measureText(recogTextView.getText().toString());	
 //            	  
 //            	  while (viewHeight < textHeight | viewWidth < textWidth)
 //            	  {
-//            	  	// ƒeƒLƒXƒgƒTƒCƒY‚ğƒfƒNƒŠƒƒ“ƒg
+//            	  	// ãƒ†ã‚­ã‚¹ãƒˆã‚µã‚¤ã‚ºã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 //            	  	textSize--;
 //
-//            	  	// Paint‚ÉƒeƒLƒXƒgƒTƒCƒYİ’è
+//            	  	// Paintã«ãƒ†ã‚­ã‚¹ãƒˆã‚µã‚¤ã‚ºè¨­å®š
 //            	  	paint.setTextSize(textSize);
 //
-//            	  	// ƒeƒLƒXƒg‚Ìc•‚ğÄæ“¾
+//            	  	// ãƒ†ã‚­ã‚¹ãƒˆã®ç¸¦å¹…ã‚’å†å–å¾—
 //            	  	fm = paint.getFontMetrics();
 //            	  	textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
 //
-//            	  	// ƒeƒLƒXƒg‚Ì‰¡•‚ğÄæ“¾
+//            	  	// ãƒ†ã‚­ã‚¹ãƒˆã®æ¨ªå¹…ã‚’å†å–å¾—
 //            	  	textWidth = paint.measureText(recogTextView.getText().toString());
 //            	  }
 //
 //            	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-//                  // true‚ğ•Ô‚³‚È‚¢‚Æ•`Ê‚³‚ê‚È‚¢
+//                  // trueã‚’è¿”ã•ãªã„ã¨æå†™ã•ã‚Œãªã„
 //                  return true;
 //              }
 //          });
@@ -952,6 +980,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //    }
   }
   
+  void translate(String str) {
+//      new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
+//    		  str).execute();
+  }
+  
   /**
    * Version of handleOcrContinuousDecode for failed OCR requests. Displays a failure message.
    * 
@@ -968,8 +1001,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //  	  parentView.removeAllViews();
 //    }
     EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
-    
+    if(!ocrRecogEditText.getText().toString().equals("")) {
 	ocrRecogEditText.setText("");
+    }
     
 //    if (CONTINUOUS_DISPLAY_METADATA) {
 //      // Color text delimited by '-' as red.
@@ -1077,8 +1111,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     if (CONTINUOUS_DISPLAY_RECOGNIZED_TEXT) {
 
         EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
-        
+
+        if(!ocrRecogEditText.getText().toString().equals("")) {
   	  	ocrRecogEditText.setText("");
+        }
 //    	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
 //        if(parentView.getChildCount() > 0) {
 //      	  parentView.removeAllViews();

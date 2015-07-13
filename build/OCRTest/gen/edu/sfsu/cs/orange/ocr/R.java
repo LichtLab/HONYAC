@@ -91,9 +91,10 @@ public final class R {
         public static final int decode=0x7f080000;
         public static final int decode_failed=0x7f080001;
         public static final int decode_succeeded=0x7f080002;
-        public static final int done_button=0x7f080013;
-        public static final int help_contents=0x7f080012;
-        public static final int menu_button=0x7f080011;
+        public static final int done_button=0x7f080015;
+        public static final int help_contents=0x7f080014;
+        public static final int image_view=0x7f080011;
+        public static final int menu_button=0x7f080013;
         public static final int ocr_continuous_decode=0x7f080003;
         public static final int ocr_continuous_decode_failed=0x7f080004;
         public static final int ocr_continuous_decode_succeeded=0x7f080005;
@@ -104,8 +105,9 @@ public final class R {
         public static final int quit=0x7f080009;
         public static final int recog_text_view=0x7f08000e;
         public static final int restart_preview=0x7f08000a;
-        public static final int shutter_button=0x7f08000f;
-        public static final int status_view_bottom=0x7f080010;
+        public static final int shutter_button=0x7f080012;
+        public static final int text_image_recog=0x7f08000f;
+        public static final int text_tranclate=0x7f080010;
         public static final int viewfinder_view=0x7f08000c;
     }
     public static final class layout {

@@ -15,8 +15,14 @@
  */
 package edu.sfsu.cs.orange.ocr.language;
 
+import java.io.IOException;
+
+import com.dictionary.search.DataBaseHelper;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 
 import edu.sfsu.cs.orange.ocr.CaptureActivity;
@@ -38,6 +44,19 @@ public class Translator {
     // Check preferences to determine which translation API to use--Google, or Bing.
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
     String api = prefs.getString(PreferencesActivity.KEY_TRANSLATOR, CaptureActivity.DEFAULT_TRANSLATOR);
+    
+    DataBaseHelper mDbHelper;  
+    SQLiteDatabase db;  
+    mDbHelper = new DataBaseHelper(activity);  
+    try {  
+        mDbHelper.createEmptyDataBase();  
+        db = mDbHelper.openDataBase();  
+    } catch (IOException ioe) {  
+        throw new Error("Unable to create database");  
+    } catch(SQLException sqle){  
+        throw sqle;  
+    }  
+    String test = TranslatorLocal.translate(sourceLanguageCode, targetLanguageCode, sourceText);
     
     // Delegate the translation based on the user's preference.
     if (api.equals(PreferencesActivity.TRANSLATOR_BING)) {
