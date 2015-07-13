@@ -12,8 +12,8 @@ from microsofttranslator import Translator
 from wordBank import WordBank
 import traceback
 MAX_URL_COUNTS = 400
-translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
- 
+# translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
+translator = Translator('shosekine', '2GFvzrRkechE3izlMfvRHRs+0y9VEcwpMUvVJhkPVOM=')
 '''
 入力　list(url)...url = 'http;//www.sekine.com/index'
 出力　list(word)...word = 'environment'

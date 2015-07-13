@@ -4,7 +4,8 @@ import chardet
 import traceback
 from microsofttranslator import Translator
 import re
-translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
+# translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
+translator = Translator('shosekine', '2GFvzrRkechE3izlMfvRHRs+0y9VEcwpMUvVJhkPVOM=')
 
 class WordBank:
     # sqliteは同時接続できないのでdbコネクションはクラス変数
