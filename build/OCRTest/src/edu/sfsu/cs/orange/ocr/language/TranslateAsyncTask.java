@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -70,6 +71,8 @@ public final class TranslateAsyncTask extends AsyncTask<String, String, Boolean>
     
     if (result) {
       //Log.i(TAG, "SUCCESS");
+        EditText translateEditView = (EditText)activity.findViewById(R.id.text_tranclate);
+        translateEditView.setText(translatedText);
 //      if (targetLanguageTextView != null) {
 //        targetLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL), Typeface.NORMAL);
 //      }
@@ -78,11 +81,13 @@ public final class TranslateAsyncTask extends AsyncTask<String, String, Boolean>
 //      textView.setTextColor(activity.getResources().getColor(R.color.translation_text));
 
       // Crudely scale betweeen 22 and 32 -- bigger font for shorter text
-      int scaledSize = Math.max(22, 32 - translatedText.length() / 4);
+//      int scaledSize = Math.max(22, 32 - translatedText.length() / 4);
 //      textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
 
     } else {
       Log.e(TAG, "FAILURE");
+      EditText translateEditView = (EditText)activity.findViewById(R.id.text_tranclate);
+      translateEditView.setText("TRANSLATE FAILURE");
 //      targetLanguageTextView.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.ITALIC);
 //      targetLanguageTextView.setText("Unavailable");
 

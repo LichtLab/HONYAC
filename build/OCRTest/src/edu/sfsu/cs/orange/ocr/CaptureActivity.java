@@ -133,7 +133,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private static final boolean CONTINUOUS_DISPLAY_RECOGNIZED_TEXT = true;
   
   /** Flag to display recognition-related statistics on the scanning screen. */
-  private static final boolean CONTINUOUS_DISPLAY_METADATA = true;
+//  private static final boolean CONTINUOUS_DISPLAY_METADATA = false;
   
   /** Flag to enable display of the on-screen shutter button. */
   private static final boolean DISPLAY_SHUTTER_BUTTON = true;
@@ -177,7 +177,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private ViewfinderView viewfinderView;
   private SurfaceView surfaceView;
   private SurfaceHolder surfaceHolder;
-  private TextView statusViewBottom;
+//  private TextView statusViewBottom;
 //  private TextView statusViewTop;
 //  private TextView ocrResultView;
 //  private TextView translationView;
@@ -239,8 +239,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     cameraButtonView = findViewById(R.id.camera_button_view);
 //    resultView = findViewById(R.id.result_view);
     
-    statusViewBottom = (TextView) findViewById(R.id.status_view_bottom);
-    registerForContextMenu(statusViewBottom);
+//    statusViewBottom = (TextView) findViewById(R.id.status_view_bottom);
+//    registerForContextMenu(statusViewBottom);
 //    statusViewTop = (TextView) findViewById(R.id.status_view_top);
 //    registerForContextMenu(statusViewTop);
     
@@ -427,6 +427,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   
   /** Called when the shutter button is pressed in continuous mode. */
   void onShutterButtonPressContinuous() {
+	  if(isPaused == false) {
     isPaused = true;
     handler.stop();  
     beepManager.playBeepSoundAndVibrate();
@@ -438,6 +439,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       toast.show();
       resumeContinuousDecoding();
     }
+	  } else {
+		  resumeContinuousDecoding();
+	  }
   }
 
   /** Called to resume recognition after translation in continuous mode. */
@@ -753,26 +757,27 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
     
     // Turn off capture-related UI elements
-    shutterButton.setVisibility(View.GONE);
-    statusViewBottom.setVisibility(View.GONE);
+//    shutterButton.setVisibility(View.GONE);
+//    statusViewBottom.setVisibility(View.GONE);
 //    statusViewTop.setVisibility(View.GONE);
 
-	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
-    if(parentView.getChildCount() > 0) {
-  	  parentView.removeAllViews();
-    }
-    cameraButtonView.setVisibility(View.GONE);
-    viewfinderView.setVisibility(View.GONE);
+//	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+//    if(parentView.getChildCount() > 0) {
+//  	  parentView.removeAllViews();
+//    }
+//    cameraButtonView.setVisibility(View.GONE);
+//    viewfinderView.setVisibility(View.GONE);
 //    resultView.setVisibility(View.VISIBLE);
 
-//    ImageView bitmapImageView = (ImageView) findViewById(R.id.image_view);
+    ImageView bitmapImageView = (ImageView) findViewById(R.id.image_view);
+    bitmapImageView.setVisibility(View.VISIBLE);
     lastBitmap = ocrResult.getBitmap();
-//    if (lastBitmap == null) {
-//      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-//          R.drawable.ic_launcher));
-//    } else {
-//      bitmapImageView.setImageBitmap(lastBitmap);
-//    }
+    if (lastBitmap == null) {
+      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+          R.drawable.ic_launcher));
+    } else {
+      bitmapImageView.setImageBitmap(lastBitmap);
+    }
 
     // Display the recognized text
 //    TextView sourceLanguageTextView = (TextView) findViewById(R.id.source_language_text_view);
@@ -780,7 +785,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //    TextView ocrResultTextView = (TextView) findViewById(R.id.ocr_result_text_view);
 //    ocrResultTextView.setText(ocrResult.getText());
     // Crudely scale betweeen 22 and 32 -- bigger font for shorter text
-    int scaledSize = Math.max(22, 32 - ocrResult.getText().length() / 4);
+//    int scaledSize = Math.max(22, 32 - ocrResult.getText().length() / 4);
 //    ocrResultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
 
 //    TextView translationLanguageLabelTextView = (TextView) findViewById(R.id.translation_language_label_text_view);
@@ -837,14 +842,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       // Display the recognized text on the screen
       List<Rect> wordRectLists = ocrResult.getWordBoundingBoxes();
       String recogText = ocrResult.getText();
-      String[] recogLineText = recogText.split("\n");
-      ArrayList<String> textList = new ArrayList<String>();
-      for(int i = 0; i < recogLineText.length; i++) {
-    	  String[] texts = recogLineText[i].split(" ");
-    	  for(int j = 0; j < texts.length; j++) {
-    		  textList.add(texts[j]);
-    	  }
-      }
+//      String[] recogLineText = recogText.split("\n");
+//      ArrayList<String> textList = new ArrayList<String>();
+//      for(int i = 0; i < recogLineText.length; i++) {
+//    	  String[] texts = recogLineText[i].split(" ");
+//    	  for(int j = 0; j < texts.length; j++) {
+//    		  textList.add(texts[j]);
+//    	  }
+//      }
       
 
       Rect frame = cameraManager.getFramingRect();
@@ -854,72 +859,79 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       float scaleX = frame.width() / (float) previewFrame.width();
       float scaleY = frame.height() / (float) previewFrame.height();
       
-      RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
-      if(parentView.getChildCount() > 0) {
-    	  parentView.removeAllViews();
-      }
-      int wordCount = wordRectLists.size();
-      for(int i = 0; i < wordCount && i < textList.size(); i++) {
-    	  Rect textRect = wordRectLists.get(i);
-    	  Rect wordRect = new Rect((int)(textRect.left*scaleX), (int)(textRect.top*scaleY), (int)(textRect.right*scaleX), (int)(textRect.bottom*scaleY));
-    	  final EditText recogTextView = new EditText(this);
-    	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, wordRect.height());
-    	  recogTextView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
-              @Override
-              public boolean onPreDraw() {
-                  // このタイミングでListenerを解除しておかないと何度もイベントが発生しうる
-            	  recogTextView.getViewTreeObserver().removeOnPreDrawListener(this);
-                   
-                  // View描写時のイベント
-            	  int viewHeight = recogTextView.getHeight();
-            	  int viewWidth = recogTextView.getWidth();	
-            	  // テキストサイズ
-            	  float textSize = recogTextView.getTextSize();
-
-            	  // Paintにテキストサイズ設定
-            	  Paint paint = new Paint();
-            	  paint.setTextSize(textSize);
-            	  
-            	  // テキストの縦幅取得
-            	  FontMetrics fm = paint.getFontMetrics();
-            	  float textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
-
-            	  // テキストの横幅取得
-            	  float textWidth = paint.measureText(recogTextView.getText().toString());	
-            	  
-            	  while (viewHeight < textHeight | viewWidth < textWidth)
-            	  {
-            	  	// テキストサイズをデクリメント
-            	  	textSize--;
-
-            	  	// Paintにテキストサイズ設定
-            	  	paint.setTextSize(textSize);
-
-            	  	// テキストの縦幅を再取得
-            	  	fm = paint.getFontMetrics();
-            	  	textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
-
-            	  	// テキストの横幅を再取得
-            	  	textWidth = paint.measureText(recogTextView.getText().toString());
-            	  }
-
-            	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                  // trueを返さないと描写されない
-                  return true;
-              }
-          });
-    	  recogTextView.setPadding(0, 0, 0, 0);
-    	  recogTextView.setTextColor(Color.BLACK);
-    	  recogTextView.setBackgroundResource(R.color.status_top_text_background);
-    	  recogTextView.getBackground().setAlpha(meanConfidence * (255 / 100));
-    	  recogTextView.setText(textList.get(i));
-    	  recogTextView.setGravity(Gravity.CENTER);
-    	  LayoutParams params = new LayoutParams(wordRect.width(), LayoutParams.WRAP_CONTENT);
-    	  MarginLayoutParams margine = (MarginLayoutParams)params;
-    	  margine.setMargins(wordRect.left+offsetLeft, wordRect.top+offsetTop+wordRect.height(), 0, 0);
-    	  recogTextView.setLayoutParams(margine);
-    	  parentView.addView(recogTextView);
-      }
+//      RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+      EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
+      
+	  ocrRecogEditText.setText(recogText);
+	  
+	  //TODO 翻訳
+	  
+//      
+//      if(parentView.getChildCount() > 0) {
+//    	  parentView.removeAllViews();
+//      }
+//      int wordCount = wordRectLists.size();
+//      for(int i = 0; i < wordCount && i < textList.size(); i++) {
+//    	  Rect textRect = wordRectLists.get(i);
+//    	  Rect wordRect = new Rect((int)(textRect.left*scaleX), (int)(textRect.top*scaleY), (int)(textRect.right*scaleX), (int)(textRect.bottom*scaleY));
+//    	  final EditText recogTextView = new EditText(this);
+//    	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, wordRect.height());
+//    	  recogTextView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
+//              @Override
+//              public boolean onPreDraw() {
+//                  // このタイミングでListenerを解除しておかないと何度もイベントが発生しうる
+//            	  recogTextView.getViewTreeObserver().removeOnPreDrawListener(this);
+//                   
+//                  // View描写時のイベント
+//            	  int viewHeight = recogTextView.getHeight();
+//            	  int viewWidth = recogTextView.getWidth();	
+//            	  // テキストサイズ
+//            	  float textSize = recogTextView.getTextSize();
+//
+//            	  // Paintにテキストサイズ設定
+//            	  Paint paint = new Paint();
+//            	  paint.setTextSize(textSize);
+//            	  
+//            	  // テキストの縦幅取得
+//            	  FontMetrics fm = paint.getFontMetrics();
+//            	  float textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
+//
+//            	  // テキストの横幅取得
+//            	  float textWidth = paint.measureText(recogTextView.getText().toString());	
+//            	  
+//            	  while (viewHeight < textHeight | viewWidth < textWidth)
+//            	  {
+//            	  	// テキストサイズをデクリメント
+//            	  	textSize--;
+//
+//            	  	// Paintにテキストサイズ設定
+//            	  	paint.setTextSize(textSize);
+//
+//            	  	// テキストの縦幅を再取得
+//            	  	fm = paint.getFontMetrics();
+//            	  	textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
+//
+//            	  	// テキストの横幅を再取得
+//            	  	textWidth = paint.measureText(recogTextView.getText().toString());
+//            	  }
+//
+//            	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+//                  // trueを返さないと描写されない
+//                  return true;
+//              }
+//          });
+//    	  recogTextView.setPadding(0, 0, 0, 0);
+//    	  recogTextView.setTextColor(Color.BLACK);
+//    	  recogTextView.setBackgroundResource(R.color.status_top_text_background);
+//    	  recogTextView.getBackground().setAlpha(meanConfidence * (255 / 100));
+//    	  recogTextView.setText(textList.get(i));
+//    	  recogTextView.setGravity(Gravity.CENTER);
+//    	  LayoutParams params = new LayoutParams(wordRect.width(), LayoutParams.WRAP_CONTENT);
+//    	  MarginLayoutParams margine = (MarginLayoutParams)params;
+//    	  margine.setMargins(wordRect.left+offsetLeft, wordRect.top+offsetTop+wordRect.height(), 0, 0);
+//    	  recogTextView.setLayoutParams(margine);
+//    	  parentView.addView(recogTextView);
+//      }
       
     	
 //      statusViewTop.setText(ocrResult.getText());
@@ -931,13 +943,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //      statusViewTop.getBackground().setAlpha(meanConfidence * (255 / 100));
     }
 
-    if (CONTINUOUS_DISPLAY_METADATA) {
-      // Display recognition-related metadata at the bottom of the screen
-      long recognitionTimeRequired = ocrResult.getRecognitionTimeRequired();
-      statusViewBottom.setTextSize(14);
-      statusViewBottom.setText("OCR: " + sourceLanguageReadable + " - Mean confidence: " + 
-          meanConfidence.toString() + " - Time required: " + recognitionTimeRequired + " ms");
-    }
+//    if (CONTINUOUS_DISPLAY_METADATA) {
+//      // Display recognition-related metadata at the bottom of the screen
+////      long recognitionTimeRequired = ocrResult.getRecognitionTimeRequired();
+////      statusViewBottom.setTextSize(14);
+////      statusViewBottom.setText("OCR: " + sourceLanguageReadable + " - Mean confidence: " + 
+////          meanConfidence.toString() + " - Time required: " + recognitionTimeRequired + " ms");
+//    }
   }
   
   /**
@@ -951,18 +963,21 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     
     // Reset the text in the recognized text box.
 //    statusViewTop.setText("");
-	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
-    if(parentView.getChildCount() > 0) {
-  	  parentView.removeAllViews();
-    }
+//	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+//    if(parentView.getChildCount() > 0) {
+//  	  parentView.removeAllViews();
+//    }
+    EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
     
-    if (CONTINUOUS_DISPLAY_METADATA) {
-      // Color text delimited by '-' as red.
-      statusViewBottom.setTextSize(14);
-      CharSequence cs = setSpanBetweenTokens("OCR: " + sourceLanguageReadable + " - OCR failed - Time required: " 
-          + obj.getTimeRequired() + " ms", "-", new ForegroundColorSpan(0xFFFF0000));
-      statusViewBottom.setText(cs);
-    }
+	ocrRecogEditText.setText("");
+    
+//    if (CONTINUOUS_DISPLAY_METADATA) {
+//      // Color text delimited by '-' as red.
+////      statusViewBottom.setTextSize(14);
+////      CharSequence cs = setSpanBetweenTokens("OCR: " + sourceLanguageReadable + " - OCR failed - Time required: " 
+////          + obj.getTimeRequired() + " ms", "-", new ForegroundColorSpan(0xFFFF0000));
+////      statusViewBottom.setText(cs);
+//    }
   }
   
   /**
@@ -1051,17 +1066,23 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
    */
   private void resetStatusView() {
 //    resultView.setVisibility(View.GONE);
-    if (CONTINUOUS_DISPLAY_METADATA) {
-      statusViewBottom.setText("");
-      statusViewBottom.setTextSize(14);
-      statusViewBottom.setTextColor(getResources().getColor(R.color.status_text));
-      statusViewBottom.setVisibility(View.VISIBLE);
-    }
+    ImageView bitmapImageView = (ImageView) findViewById(R.id.image_view);
+    bitmapImageView.setVisibility(View.GONE);
+//    if (CONTINUOUS_DISPLAY_METADATA) {
+////      statusViewBottom.setText("");
+////      statusViewBottom.setTextSize(14);
+////      statusViewBottom.setTextColor(getResources().getColor(R.color.status_text));
+////      statusViewBottom.setVisibility(View.VISIBLE);
+//    }
     if (CONTINUOUS_DISPLAY_RECOGNIZED_TEXT) {
-    	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
-        if(parentView.getChildCount() > 0) {
-      	  parentView.removeAllViews();
-        }
+
+        EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
+        
+  	  	ocrRecogEditText.setText("");
+//    	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+//        if(parentView.getChildCount() > 0) {
+//      	  parentView.removeAllViews();
+//        }
 //      statusViewTop.setText("");
 //      statusViewTop.setTextSize(14);
 //      statusViewTop.setVisibility(View.VISIBLE);
@@ -1088,9 +1109,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
    */
   void setStatusViewForContinuous() {
     viewfinderView.removeResultText();
-    if (CONTINUOUS_DISPLAY_METADATA) {
-      statusViewBottom.setText("OCR: " + sourceLanguageReadable + " - waiting for OCR...");
-    }
+//    if (CONTINUOUS_DISPLAY_METADATA) {
+////      statusViewBottom.setText("OCR: " + sourceLanguageReadable + " - waiting for OCR...");
+//    }
   }
   
   @SuppressWarnings("unused")
@@ -1119,8 +1140,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   @Override
   public void onShutterButtonClick(ShutterButton b) {
     if (isContinuousModeActive) {
+    	Log.d(TAG, "onShutterButtonClick isContinuousModeActive:true");
       onShutterButtonPressContinuous();
     } else {
+    	Log.d(TAG, "onShutterButtonClick isContinuousModeActive:false");
       if (handler != null) {
         handler.shutterButtonClick();
       }

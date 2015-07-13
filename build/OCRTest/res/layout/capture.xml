@@ -166,11 +166,28 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/recog_text_view"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+            
+            <EditText 
+                android:id="@+id/text_image_recog"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+            
+            <EditText 
+                android:id="@+id/text_tranclate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+            
+            </LinearLayout>
+        <ImageView android:id="@+id/image_view"
+                   android:layout_width="fill_parent"
+                   android:layout_height="fill_parent"
+                   android:adjustViewBounds="true"
+                   android:scaleType="fitCenter"/>
         <!--
          <TextView android:id="@+id/status_view_top"
               android:layout_width="wrap_content"
@@ -198,7 +215,7 @@
             android:scaleType="center"
             android:visibility="gone" />
 
-        <TextView
+ <!--       <TextView
             android:id="@+id/status_view_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -208,7 +225,7 @@
             android:clickable="true"
             android:text=""
             android:textColor="@color/status_text"
-            android:textSize="14sp" />
+            android:textSize="14sp" /> --> 
 
         <Button
             android:id="@+id/menu_button"
