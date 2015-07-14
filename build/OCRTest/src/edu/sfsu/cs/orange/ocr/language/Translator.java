@@ -59,7 +59,7 @@ public class Translator {
 		} catch(SQLException sqle){  
 			throw sqle;  
 		}  
-		if(!netWorkCheck(activity)) {
+		if(netWorkCheck(activity)) {
 			String test = TranslatorLocal.translate(sourceLanguageCode, targetLanguageCode, sourceText);
 		} else {
 			// Delegate the translation based on the user's preference.

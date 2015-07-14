@@ -28,9 +28,8 @@ public class Dicworker {
 	}
 
 	public ArrayList<Word> getWords(String src) throws SQLException {
-		
 		try {
-			Class.forName("org.sqldroid.SqldroidDriver").newInstance();
+			Class.forName("org.sqldroid.SQLDroidDriver").newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
