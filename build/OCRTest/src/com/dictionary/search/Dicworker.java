@@ -29,8 +29,17 @@ public class Dicworker {
 
 	public ArrayList<Word> getWords(String src) throws SQLException {
 		
+		try {
+			Class.forName("org.sqldroid.SqldroidDriver").newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		this.conn = DriverManager
-				.getConnection("jdbc:sqlite://data/data/edu.sfsu.cs.orange.ocr/" + dbname + ".db");
+				.getConnection("jdbc:sqldroid:/data/data/edu.sfsu.cs.orange.ocr/databases/" + dbname + ".db");
 		this.stmt = conn.createStatement();
 		ArrayList<Word> searchedwords = new ArrayList<Word>();
 		// 入力されたstringで検索

@@ -99,7 +99,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public static final String DEFAULT_SOURCE_LANGUAGE_CODE = "eng";
   
   /** ISO 639-1 language code indicating the default target language for translation. */
-  public static final String DEFAULT_TARGET_LANGUAGE_CODE = "es";
+  public static final String DEFAULT_TARGET_LANGUAGE_CODE = "ja";
   
   /** The default online machine translation service to use. */
   public static final String DEFAULT_TRANSLATOR = "Google Translate";
@@ -120,7 +120,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public static final boolean DEFAULT_TOGGLE_BEEP = false;
   
   /** Whether to initially show a looping, real-time OCR display. */
-  public static final boolean DEFAULT_TOGGLE_CONTINUOUS = false;
+  public static final boolean DEFAULT_TOGGLE_CONTINUOUS = true;
   
   /** Whether to initially reverse the image returned by the camera. */
   public static final boolean DEFAULT_TOGGLE_REVERSED_IMAGE = false;
@@ -755,7 +755,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       Log.d(TAG, "Disabling continuous preview");
       isContinuousModeActive = false;
       SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-      prefs.edit().putBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, false);
+//      prefs.edit().putBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, false);
     }
     
     // Start AsyncTask to install language data and init OCR
@@ -981,8 +981,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   }
   
   void translate(String str) {
-//      new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
-//    		  str).execute();
+      new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
+    		  str).execute();
   }
   
   /**
@@ -1222,19 +1222,19 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       } else {
         isFirstLaunch = false;
       }
-      if (currentVersion > lastVersion) {
-        
-        // Record the last version for which we last displayed the What's New (Help) page
-        prefs.edit().putInt(PreferencesActivity.KEY_HELP_VERSION_SHOWN, currentVersion).commit();
-        Intent intent = new Intent(this, HelpActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        
-        // Show the default page on a clean install, and the what's new page on an upgrade.
-        String page = lastVersion == 0 ? HelpActivity.DEFAULT_PAGE : HelpActivity.WHATS_NEW_PAGE;
-        intent.putExtra(HelpActivity.REQUESTED_PAGE_KEY, page);
-        startActivity(intent);
-        return true;
-      }
+//      if (currentVersion > lastVersion) {
+//        
+//        // Record the last version for which we last displayed the What's New (Help) page
+//        prefs.edit().putInt(PreferencesActivity.KEY_HELP_VERSION_SHOWN, currentVersion).commit();
+//        Intent intent = new Intent(this, HelpActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//        
+//        // Show the default page on a clean install, and the what's new page on an upgrade.
+//        String page = lastVersion == 0 ? HelpActivity.DEFAULT_PAGE : HelpActivity.WHATS_NEW_PAGE;
+//        intent.putExtra(HelpActivity.REQUESTED_PAGE_KEY, page);
+//        startActivity(intent);
+//        return true;
+//      }
     } catch (PackageManager.NameNotFoundException e) {
       Log.w(TAG, e);
     }
@@ -1269,14 +1269,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
       setSourceLanguage(prefs.getString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE));
       setTargetLanguage(prefs.getString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_TARGET_LANGUAGE_CODE));
-      isTranslationActive = prefs.getBoolean(PreferencesActivity.KEY_TOGGLE_TRANSLATION, false);
-      
+//      isTranslationActive = prefs.getBoolean(PreferencesActivity.KEY_TOGGLE_TRANSLATION, false);
+      isTranslationActive = true;
       // Retrieve from preferences, and set in this Activity, the capture mode preference
-      if (prefs.getBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, CaptureActivity.DEFAULT_TOGGLE_CONTINUOUS)) {
+//      if (prefs.getBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, CaptureActivity.DEFAULT_TOGGLE_CONTINUOUS)) {
         isContinuousModeActive = true;
-      } else {
-        isContinuousModeActive = false;
-      }
+//      } else {
+//        isContinuousModeActive = false;
+//      }
 
       // Retrieve from preferences, and set in this Activity, the page segmentation mode preference
       String[] pageSegmentationModes = getResources().getStringArray(R.array.pagesegmentationmodes);
@@ -1328,13 +1328,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
     // Continuous preview
-    prefs.edit().putBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, CaptureActivity.DEFAULT_TOGGLE_CONTINUOUS).commit();
+//    prefs.edit().putBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, CaptureActivity.DEFAULT_TOGGLE_CONTINUOUS).commit();
 
     // Recognition language
     prefs.edit().putString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE).commit();
 
     // Translation
-    prefs.edit().putBoolean(PreferencesActivity.KEY_TOGGLE_TRANSLATION, CaptureActivity.DEFAULT_TOGGLE_TRANSLATION).commit();
+//    prefs.edit().putBoolean(PreferencesActivity.KEY_TOGGLE_TRANSLATION, CaptureActivity.DEFAULT_TOGGLE_TRANSLATION).commit();
 
     // Translation target language
     prefs.edit().putString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_TARGET_LANGUAGE_CODE).commit();
@@ -1354,13 +1354,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     // Beep
     prefs.edit().putBoolean(PreferencesActivity.KEY_PLAY_BEEP, CaptureActivity.DEFAULT_TOGGLE_BEEP).commit();
     
-    // Character blacklist
-    prefs.edit().putString(PreferencesActivity.KEY_CHARACTER_BLACKLIST, 
-        OcrCharacterHelper.getDefaultBlacklist(CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE)).commit();
-
-    // Character whitelist
-    prefs.edit().putString(PreferencesActivity.KEY_CHARACTER_WHITELIST, 
-        OcrCharacterHelper.getDefaultWhitelist(CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE)).commit();
+//    // Character blacklist
+//    prefs.edit().putString(PreferencesActivity.KEY_CHARACTER_BLACKLIST, 
+//        OcrCharacterHelper.getDefaultBlacklist(CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE)).commit();
+//
+//    // Character whitelist
+//    prefs.edit().putString(PreferencesActivity.KEY_CHARACTER_WHITELIST, 
+//        OcrCharacterHelper.getDefaultWhitelist(CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE)).commit();
 
     // Page segmentation mode
     prefs.edit().putString(PreferencesActivity.KEY_PAGE_SEGMENTATION_MODE, CaptureActivity.DEFAULT_PAGE_SEGMENTATION_MODE).commit();

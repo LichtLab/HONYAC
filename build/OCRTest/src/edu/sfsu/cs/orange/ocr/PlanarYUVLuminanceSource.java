@@ -64,12 +64,12 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
     this.yuvData = yuvData;
     this.dataWidth = dataWidth;
     this.dataHeight = dataHeight;
-    Log.d("rotate", "this.dataWidth:"+this.dataWidth+" this.dataHeight:"+this.dataHeight);
+//    Log.d("rotate", "this.dataWidth:"+this.dataWidth+" this.dataHeight:"+this.dataHeight);
 //    this.left = left;
 //    this.top = top;
     this.left = (dataWidth- height)/2;
     this.top = (dataHeight - width)/2;
-    Log.d("rotate", "bmp this.top:"+this.top+" dataWidth:"+this.dataWidth+" this.left:"+this.left);
+//    Log.d("rotate", "bmp this.top:"+this.top+" dataWidth:"+this.dataWidth+" this.left:"+this.left);
     if (reverseHorizontal) {
       reverseHorizontal(width, height);
     }
@@ -152,11 +152,11 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
   public Bitmap renderCroppedGreyscaleBitmap() {
     int width = getWidth();
     int height = getHeight();
-    Log.d("rotate", "width:"+width+" height:"+height);
+//    Log.d("rotate", "width:"+width+" height:"+height);
     int[] pixels = new int[width * height];
     byte[] yuv = yuvData;
 //    int inputOffset = top * dataWidth + left;
-    Log.d("rotate", "bmp top:"+top+" dataWidth:"+dataWidth+" left:"+left);
+//    Log.d("rotate", "bmp top:"+top+" dataWidth:"+dataWidth+" left:"+left);
 
 //    for (int y = 0; y < height; y++) {
 //      int outputOffset = y * width;
@@ -168,18 +168,18 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
 //    }
     
 
-    // ƒvƒŒƒrƒ…[ƒf[ƒ^‚©‚ç Bitmap ‚ð¶¬ 
+    // ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ Bitmap ã‚’ç”Ÿæˆ 
     Bitmap bmp = getBitmapImageFromYUV(yuv, dataWidth, dataHeight);
-//    // ‚ ‚Æ‚ÍBitmap‚ðD‚«‚ÉŽg‚¤B
+//    // ã‚ã¨ã¯Bitmapã‚’å¥½ãã«ä½¿ã†ã€‚
 //    try {
-//        // •Û‘¶ˆ—ŠJŽn
+//        // ä¿å­˜å‡¦ç†é–‹å§‹
 //        FileOutputStream fos = null;
 //        fos = new FileOutputStream(new File( "/sdcard/preview.jpg"));
 //
-//        // jpeg‚Å•Û‘¶
+//        // jpegã§ä¿å­˜
 //        bmp.compress(CompressFormat.JPEG, 100, fos);
 //
-//        // •Û‘¶ˆ—I—¹
+//        // ä¿å­˜å‡¦ç†çµ‚äº†
 //        fos.close();
 //        } catch (Exception e) {
 //        Log.e("Error", "" + e.toString());
@@ -189,36 +189,36 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
 //    bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
 //    bitmap.setPixels(pixels, 0, height, 0, 0, height, width);
 //    try {
-//    // •Û‘¶ˆ—ŠJŽn
+//    // ä¿å­˜å‡¦ç†é–‹å§‹
 //    FileOutputStream fos = null;
 //    fos = new FileOutputStream(new File( "/sdcard/crop.jpg"));
 //
-//    // jpeg‚Å•Û‘¶
+//    // jpegã§ä¿å­˜
 //    crop_bitmap.compress(CompressFormat.JPEG, 100, fos);
 //
-//    // •Û‘¶ˆ—I—¹
+//    // ä¿å­˜å‡¦ç†çµ‚äº†
 //    fos.close();
 //    } catch (Exception e) {
 //    Log.e("Error", "" + e.toString());
 //    }
-    Log.d("rotate", "bmp bitmap.getWidth():"+crop_bitmap.getWidth()+" bitmap.getHeight():"+crop_bitmap.getHeight());
+//    Log.d("rotate", "bmp bitmap.getWidth():"+crop_bitmap.getWidth()+" bitmap.getHeight():"+crop_bitmap.getHeight());
 
-    //‰ñ“]
+    //å›žè»¢
     Matrix m = new Matrix();
     m.setRotate(90);
 
-    //•Û‘¶—p bitmap¶¬
+    //ä¿å­˜ç”¨ bitmapç”Ÿæˆ
     Bitmap rotated_bmp = Bitmap.createBitmap(crop_bitmap,0,0,crop_bitmap.getWidth(),crop_bitmap.getHeight(),m,true);
-    Log.d("rotate", "rotated_bmp rotated_bmp.getWidth():"+rotated_bmp.getWidth()+" rotated_bmp.getHeight():"+rotated_bmp.getHeight());
+//    Log.d("rotate", "rotated_bmp rotated_bmp.getWidth():"+rotated_bmp.getWidth()+" rotated_bmp.getHeight():"+rotated_bmp.getHeight());
 //    try {
-//    // •Û‘¶ˆ—ŠJŽn
+//    // ä¿å­˜å‡¦ç†é–‹å§‹
 //    FileOutputStream fos = null;
 //    fos = new FileOutputStream(new File( "/sdcard/rotate.jpg"));
 //
-//    // jpeg‚Å•Û‘¶
+//    // jpegã§ä¿å­˜
 //    rotated_bmp.compress(CompressFormat.JPEG, 100, fos);
 //
-//    // •Û‘¶ˆ—I—¹
+//    // ä¿å­˜å‡¦ç†çµ‚äº†
 //    fos.close();
 //    } catch (Exception e) {
 //    Log.e("Error", "" + e.toString());
