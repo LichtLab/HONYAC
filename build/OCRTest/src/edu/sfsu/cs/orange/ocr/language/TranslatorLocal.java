@@ -7,16 +7,17 @@ import com.dictionary.search.Searcher;
 import com.dictionary.search.Word;
 
 public class TranslatorLocal {
-
+	//fromLanguage, toLanguageはtesseractの言語表記に合わせる
+	// 例 jpn, eng, fra, spa(スペイン), deu(ドイツ), pol(ポルトガル), ita(イタリア), ell(ギリシャ)
 	static public String translate(String fromLanguage, String toLanguage, String text) {
-		
-		Searcher srearcher = new Searcher();
-		String src = "d;stanc,e";
+		// 入力のヨーロッパアルファベットを普通のアルファベットに変換する
+		String src = stripDiacritics(text);
+		// String src = "d;stanc,e";
+		Searcher searcher = new Searcher();
 		ArrayList<Word> strings = new ArrayList<Word>();
-		
 		ArrayList<String> ret = new ArrayList<String>();
 		try {
-			strings = srearcher.searchWords(src);
+			strings = searcher.searchWords(src, fromLanguage, toLanguage);
 			for (Word w : strings) {
 				System.out.println(w.from_word + ":" + w.to_word);
 				ret.add(w.to_word);
@@ -28,4 +29,14 @@ public class TranslatorLocal {
 		else
 		return ret.get(0);
 	}
+
+	public static final Pattern DIACRITICS_AND_FRIENDS = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
+	private static String stripDiacritics(String str) {
+    	str = Normalizer.normalize(str, Normalizer.Form.NFD);
+    	str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
+    	return str;
+	}
+
+	
+
 }
