@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Searcher {
 	public ArrayList<Word> searchWords(String src, String fromLanguage, String toLanguage) throws SQLException {
 		ArrayList<Word> searchedlist = new ArrayList<Word>();
-		// String wordBankname = 'wordBank_' + fromLanguage + '_' + toLanguage; 
-		String wordBankname = 'wordBank';
+		String wordBankname = 'wordBank_' + fromLanguage + '_' + toLanguage; 
+		// String wordBankname = 'wordBank';
 		Dicworker dicwkr = new Dicworker(wordBankname);
 		searchedlist = dicwkr.getWords(src);
 		// 類似性の高いwordだけを抽出

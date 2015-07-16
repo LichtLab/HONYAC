@@ -18,8 +18,10 @@ public class TranslatorLocal {
 		Searcher searcher = new Searcher();
 		ArrayList<Word> strings = new ArrayList<Word>();
 		ArrayList<String> ret = new ArrayList<String>();
+		String modi_fromLanguage = modifyCountryName(fromLanguage);
+		String modi_toLanguage = modifyCountryName(ftoLanguage);
 		try {
-			strings = searcher.searchWords(text, fromLanguage, toLanguage);
+			strings = searcher.searchWords(text, modi_fromLanguage, modi_toLanguage);
 			for (Word w : strings) {
 				System.out.println(w.from_word + ":" + w.to_word);
 				ret.add(w.to_word);
@@ -39,6 +41,12 @@ public class TranslatorLocal {
    		return str;
 	}
 
-	
-
+	//スペイン・ポルトガル語は同じ辞書なので共にwordBank_spa_jpn.dbファイルに接続させる
+	private static String modifyCountryName(String country){
+		String ctname = country;
+		if(country.equals("pol")){
+			ctname = 'spa';
+		}
+		return ctname;
+	}
 }
