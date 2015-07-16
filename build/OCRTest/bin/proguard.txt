@@ -1,0 +1,12 @@
+# view AndroidManifest.xml #generated:37
+-keep class edu.sfsu.cs.orange.ocr.CaptureActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:57
+-keep class edu.sfsu.cs.orange.ocr.PreferencesActivity { <init>(...); }
+
+# view res/layout/capture.xml #generated:28
+-keep class edu.sfsu.cs.orange.ocr.ViewfinderView { <init>(...); }
+
+# view res/layout/capture.xml #generated:204
+-keep class edu.sfsu.cs.orange.ocr.camera.ShutterButton { <init>(...); }
+
