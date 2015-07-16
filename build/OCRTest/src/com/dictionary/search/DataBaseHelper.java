@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper {  
   
-    private static String DB_NAME = "wordBank";  
+    private static String DB_NAME = "wordBank.db";  
     private static String DB_NAME_ASSET = "wordBank.db";  
     private static final int DATABASE_VERSION = 17;  
   

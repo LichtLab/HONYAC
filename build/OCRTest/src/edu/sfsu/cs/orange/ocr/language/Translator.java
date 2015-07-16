@@ -60,7 +60,7 @@ public class Translator {
 			throw sqle;  
 		}  
 		if(netWorkCheck(activity)) {
-			String test = TranslatorLocal.translate(sourceLanguageCode, targetLanguageCode, sourceText);
+			return TranslatorLocal.translate(sourceLanguageCode, targetLanguageCode, sourceText);
 		} else {
 			// Delegate the translation based on the user's preference.
 			if (api.equals(PreferencesActivity.TRANSLATOR_BING)) {
