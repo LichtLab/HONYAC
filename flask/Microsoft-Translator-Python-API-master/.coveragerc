@@ -1,5 +1,0 @@
-[run]
-source = microsofttranslator
-
-[report]
-omit = */tests/*, */fabfile.py
