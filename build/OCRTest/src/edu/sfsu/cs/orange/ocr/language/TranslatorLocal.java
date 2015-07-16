@@ -10,7 +10,7 @@ public class TranslatorLocal {
 	//fromLanguage, toLanguageはtesseractの言語表記に合わせる
 	// 例 jpn, eng, fra, spa(スペイン), deu(ドイツ), pol(ポルトガル), ita(イタリア), ell(ギリシャ)
 	static public String translate(String fromLanguage, String toLanguage, String text) {
-		// 入力のヨーロッパアルファベットを普通のアルファベットに変換する
+		// 入力のヨーロッパアルファベットを普通のアルフsァベットに変換する
 		String src = stripDiacritics(text);
 		// String src = "d;stanc,e";
 		Searcher searcher = new Searcher();

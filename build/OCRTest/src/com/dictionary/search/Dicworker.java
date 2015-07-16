@@ -40,11 +40,10 @@ public class Dicworker {
 		this.conn = DriverManager
 				.getConnection("jdbc:sqldroid:/data/data/edu.sfsu.cs.orange.ocr/databases/" + dbname + ".db");
 		this.stmt = conn.createStatement();
-		ArrayList<Word> searchedwords = new ArrayList<Word>();
 		// 入力されたstringで検索
-		searchedwords = sqlWorker(src);
+		ArrayList<Word> searchedwords = sqlWorker(src);
 		// 1つもヒットしなかったらngramに分割して部分一致の検索
-		if (searchedwords.size() < 1) {
+		if (searchedwords == null || searchedwords.size() < 1) {
 			searchedwords = getRelativeWords(src);
 		}
 		return searchedwords;
