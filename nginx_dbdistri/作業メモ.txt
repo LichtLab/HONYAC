@@ -1,0 +1,12 @@
+nginxのインストール
+
+ipアドレス/dbファイル名　でOK
+例
+127.22.2.11:8080/wordBank_fra_jpn.db
+でdbファイルがダウンロードされる。無かったら、not foundが返る
+
+nginx.confファイルの変更は
+#added by ShoSekine
+        location / { root /usr/local/etc/wordBank; }
+        location ~ /\. { deny all; }
+の２つだけ
