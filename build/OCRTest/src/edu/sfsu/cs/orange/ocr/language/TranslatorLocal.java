@@ -13,7 +13,7 @@ public class TranslatorLocal {
 	// 例 jpn, eng, fra, spa(スペイン), deu(ドイツ), pol(ポルトガル), ita(イタリア), ell(ギリシャ)
 	static public String translate(String fromLanguage, String toLanguage, String text) {
 		// 入力のヨーロッパアルファベットを普通のアルファベットに変換する
-//		String src = stripDiacritics(text);
+		String src = stripDiacritics(text);
 		// String src = "d;stanc,e";
 		Searcher searcher = new Searcher();
 		ArrayList<Word> strings = new ArrayList<Word>();
@@ -32,12 +32,12 @@ public class TranslatorLocal {
 		return ret.get(0);
 	}
 
-//	public static final Pattern DIACRITICS_AND_FRIENDS = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
-//	private static String stripDiacritics(String str) {
-//    	str = Normalizer.normalize(str, Normalizer.Form.NFD);
-//    	str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
-//    	return str;
-//	}
+	public static final Pattern DIACRITICS_AND_FRIENDS = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
+	private static String stripDiacritics(String str) {
+	   	str = Normalizer.normalize(str, Normalizer.Form.NFD);
+	   	str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
+   		return str;
+	}
 
 	
 
