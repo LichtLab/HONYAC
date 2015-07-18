@@ -14,6 +14,11 @@ import traceback
 MAX_URL_COUNTS = 400
 # translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
 translator = Translator('shosekine', '2GFvzrRkechE3izlMfvRHRs+0y9VEcwpMUvVJhkPVOM=')
+
+def strip_accents(s):
+   return ''.join(c for c in unicodedata.normalize('NFD', s)
+                  if unicodedata.category(c) != 'Mn')
+
 '''
 入力　list(url)...url = 'http;//www.sekine.com/index'
 出力　list(word)...word = 'environment'
@@ -49,6 +54,8 @@ def extractwords_fromwebpagelist(urls):
                     word = string.replace(word, u'`', u'')
                     word = string.replace(word, u'‘', u'')
                     word = word.lower()#小文字に変換
+                    #ヨーロッパアクセント文字の変換
+                    word = strip_accents(word)
                     if word != '\r\n' and word != '' and len(word) >= 2:#1文字のものは削除
                         try:
                             if not isinstance(word, unicode):
