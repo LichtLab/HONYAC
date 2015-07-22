@@ -11,6 +11,7 @@ from selenium import webdriver
 from microsofttranslator import Translator
 from wordBank import WordBank
 import traceback
+import unicodedata
 MAX_URL_COUNTS = 400
 # translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
 translator = Translator('shosekine', '2GFvzrRkechE3izlMfvRHRs+0y9VEcwpMUvVJhkPVOM=')
@@ -60,6 +61,7 @@ def extractwords_fromwebpagelist(urls):
                         try:
                             if not isinstance(word, unicode):
                                 raise 'not unicode error'
+                            print word
                             wordline = (u'pol', word, u'ja')
                             done = dbinstance.registWord(wordline)
                             print done
@@ -93,29 +95,27 @@ def getlinkurllist(url_diclist):
             for urlele in links_from_targeturl:
                 if urlele.find('http') or urlele.find('https'):
                     #特定のリンク先を落とすフィルタリング
-                    if not urlele.find('css') or not urlele.find('jpg') or not urlele.find('png') or not urlele.find('js') or urlele.find('javascript'): 
-                        if urlele.find('mail'):
-                            try:
-                                #urleleが既に登録済みのリンクでないかをチェック
-                                existingflag = False
-                                for targeturl_sub in newurls:
-                                    if targeturl_sub['base'] == urlele:
-                                        existingflag = True
+                    if not re.search('css, jpg, png, js, javascript, gif, mail',urlele):
+                        try:
+                            #urleleが既に登録済みのリンクでないかをチェック
+                            existingflag = False
+                            for targeturl_sub in newurls:
+                                if targeturl_sub['base'] == urlele:
+                                    existingflag = True
                                 if existingflag == False:
-                                    #print urlele
                                     newurl_dic = {'base': urlele, 'absolute': targeturl['absolute']}
                                     newurls.append(newurl_dic)
                                     # print len(newurls)
                                     if len(newurls) > MAX_URL_COUNTS:
                                         raise Exception ('Interaption')
-                            except Exception, e:
-                                if len(newurls) > MAX_URL_COUNTS:
-                                    # print 'exception1'
-                                    raise Exception ('Interaption')
-                                else:
-                                    # print 'exception1_sub'
-                                    print len(newurls)
-                                    pass
+                        except Exception, e:
+                            if len(newurls) > MAX_URL_COUNTS:
+                                # print 'exception1'
+                                raise Exception ('Interaption')
+                            else:
+                                # print 'exception1_sub'
+                                print len(newurls)
+                                pass
         except Exception, e:
             if len(newurls) > MAX_URL_COUNTS:
                 # print 'exception2'
@@ -139,9 +139,7 @@ def translateword(word, to_language):
 
 if __name__ == '__main__':
     urls = [
-    {'base' : 'http://www.lemonde.fr/'                ,'absolute' : 'http://www.lemonde.fr'},
-    {'base' : 'http://www.la-croix.com/'              ,'absolute' : 'http://www.la-croix.com'},
-    {'base' : 'http://www.liberation.fr/'             ,'absolute' : 'http://www.liberation.fr'},
+    {'base' : 'http://www.cmjornal.xl.pt/'            ,'absolute' : 'http://www.cmjornal.xl.pt'},
         ]
     targeturls = []
     targeturls = getlinkurllist(urls)

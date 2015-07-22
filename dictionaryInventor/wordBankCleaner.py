@@ -21,14 +21,14 @@ def WordBankCleaner():
             iteration = iteration + 1
 
 if __name__ == '__main__':
-    # con = sqlite3.connect("wordBank.db")
-    # cur = con.cursor()
-    # cur.execute("CREATE INDEX fromwordindex ON wordTable(from_word)")
+    con = sqlite3.connect("wordBank_spa_jpn.db")
+    cur = con.cursor()
+    cur.execute("CREATE INDEX fromwordindex ON wordTable(from_word)")
     # WordBankCleaner()
     # string = detect(u"生年月日")
     # print string
-    string = u'これは9です'
-    if re.search("[a-z]",string):
-        print 'OK'
-    else:
-        print 'NG'
+    # string = u'これは9です'
+    # if re.search("[a-z]",string):
+    #     print 'OK'
+    # else:
+    #     print 'NG'

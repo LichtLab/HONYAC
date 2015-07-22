@@ -5,7 +5,8 @@ import traceback
 from microsofttranslator import Translator
 import re
 # translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
-translator = Translator('shosekine', '2GFvzrRkechE3izlMfvRHRs+0y9VEcwpMUvVJhkPVOM=')
+# translator = Translator('shosekine', '2GFvzrRkechE3izlMfvRHRs+0y9VEcwpMUvVJhkPVOM=')
+translator = Translator('soutasekine', 'Tk8KK3j2+W4f6v/n1lgXeLwsbZHVUdTnZLu3L++XNQI=')
 
 class WordBank:
     # sqliteは同時接続できないのでdbコネクションはクラス変数
@@ -49,7 +50,8 @@ class WordBank:
                 translated_word = tmp[1]
                 #翻訳結果にアルファベットが含まれていたら翻訳ミスと断定して登録しない
                 if re.search("[a-z]",translated_word):
-                    raise Excetion,'tranlation err'
+                    print translated_word
+                    raise Exception,'tranlation err'
                 insertwordline = (detect_language, targetword, targetword_count, translated_word, wordline[2]) 
                 print insertwordline
                 WordBank.cur.execute("INSERT INTO wordTable(from_language, from_word, count, to_language, to_word) VALUES (?, ?, ?, ?, ?)", insertwordline)

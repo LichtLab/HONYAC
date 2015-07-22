@@ -15,7 +15,7 @@ def strip_accents(s):
 
 if __name__ == '__main__':
     dbinstance = WordBank()
-    f = open('spain_words.txt')
+    f = open('portugues_words.txt')
     line = f.readline()
     while line:
         guess = chardet.detect(line)
