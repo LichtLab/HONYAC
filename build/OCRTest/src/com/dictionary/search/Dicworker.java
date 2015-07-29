@@ -1,21 +1,20 @@
 package com.dictionary.search;
 
-import java.util.ArrayList;
-
-import android.os.AsyncTask;
-
-import com.dictionary.search.Ngramworker;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import android.os.AsyncTask;
 
 public class Dicworker {
 	static Connection conn;
 	static Statement stmt;
 	String dbname;
 	AsyncTask<String, String, Boolean> asyncTask;
+
 	/**
 	 * 読み込むDBの名前で初期化
 	 * 
@@ -42,11 +41,13 @@ public class Dicworker {
 			e.printStackTrace();
 		}
 		this.conn = DriverManager
-				.getConnection("jdbc:sqldroid:/data/data/edu.sfsu.cs.orange.ocr/databases/" + dbname + ".db");
+				.getConnection("jdbc:sqldroid:/data/data/edu.sfsu.cs.orange.ocr/databases/"
+						+ dbname + ".db");
 		this.stmt = conn.createStatement();
 		// 入力されたstringで検索
 		ArrayList<Word> searchedwords = sqlWorker(src);
-		if(asyncTask.isCancelled()) return searchedwords;
+		if (asyncTask.isCancelled())
+			return searchedwords;
 		// 1つもヒットしなかったらngramに分割して部分一致の検索
 		if (searchedwords == null || searchedwords.size() < 1) {
 			searchedwords = getRelativeWords(src);
@@ -67,25 +68,53 @@ public class Dicworker {
 	private ArrayList<Word> sqlWorker(ArrayList<String> srclist)
 			throws SQLException {
 		ArrayList<Word> querieddwords = new ArrayList<Word>();
-
+		// クエリ文字列の生成
+		String querystring = "";
+		int iterate = 0;
+		// from_word like '%" + str + "%' and from_word like '%" + str + "%'...
 		for (String str : srclist) {
-
-			if(asyncTask.isCancelled()) return querieddwords;
-			ResultSet rs = stmt
-					.executeQuery("select from_word, to_word from wordTable where from_word like '%"
-							+ str + "%' limit 1000");
-
-			while (rs.next()) {
-				if(asyncTask.isCancelled()) return querieddwords;
-				String from_word = rs.getString(1);
-				String to_word = rs.getString(2);
-				// from_wordで重複チェックしながら登録
-				Word newword = new Word(from_word, to_word);
-				if (!isDuplicated(querieddwords, newword)) {
-					querieddwords.add(newword);
-				}
+			if (asyncTask.isCancelled()) return querieddwords;
+			if (iterate == srclist.size() - 1) {
+				querystring = querystring + "from_word like '%" + str + "%' limit 5000";
+			} else {
+				querystring = querystring + "from_word like '%" + str
+						+ "%' or ";
+			}
+			iterate++;
+		}
+		querystring = "select from_word, to_word from wordTable where " + querystring;
+		ResultSet rs = stmt.executeQuery(querystring);
+		while (rs.next()) {
+			if (asyncTask.isCancelled()) return querieddwords;
+			String from_word = rs.getString(1);
+			String to_word = rs.getString(2);
+			// from_wordで重複チェックしながら登録
+			Word newword = new Word(from_word, to_word);
+			if (!isDuplicated(querieddwords, newword)) {
+				querieddwords.add(newword);
 			}
 		}
+		
+		// // 以下のコードはscrlist.size分だけクエリを投げるので無駄
+		// for (String str : srclist) {
+		// if (asyncTask.isCancelled())
+		// return querieddwords;
+		// ResultSet rs = stmt
+		// .executeQuery("select from_word, to_word from wordTable where from_word like '%"
+		// + str + "%' limit 1000");
+		// while (rs.next()) {
+		// if (asyncTask.isCancelled())
+		// return querieddwords;
+		// String from_word = rs.getString(1);
+		// String to_word = rs.getString(2); //
+		// // from_wordで重複チェックしながら登録
+		// Word newword = new Word(from_word, to_word);
+		// if (!isDuplicated(querieddwords, newword)) {
+		// querieddwords.add(newword);
+		// }
+		// }
+		// }
+
 		return querieddwords;
 	}
 
@@ -96,7 +125,7 @@ public class Dicworker {
 		ResultSet rs = this.stmt
 				.executeQuery("select from_word, to_word from wordTable where from_word='"
 						+ src + "'");
-		
+
 		while (rs.next()) {
 			String from_word = rs.getString(1);
 			String to_word = rs.getString(2);

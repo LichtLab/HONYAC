@@ -5,10 +5,9 @@ import java.sql.SQLException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
+import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-
 import com.dictionary.search.DataBaseHelper;
 import com.dictionary.search.Searcher;
 import com.dictionary.search.Word;
@@ -34,7 +33,9 @@ public class TranslatorLocal {
 			strings = searcher.searchWords(lowStr, modi_fromLanguage, modi_toLanguage, asyncTask);
 			for (Word w : strings) {
 				System.out.println(w.from_word + ":" + w.to_word);
-				ret.add(w.to_word);
+				String addingword = "(" + w.from_word + ") " + w.to_word;
+//				ret.add(w.to_word);
+				ret.add(addingword);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,6 +55,7 @@ public class TranslatorLocal {
 		return ret_string;
 	}
 
+	@SuppressLint("NewApi")
 	private static String stripDiacritics(String str) {
 	   	str = Normalizer.normalize(str, Normalizer.Form.NFD);
 

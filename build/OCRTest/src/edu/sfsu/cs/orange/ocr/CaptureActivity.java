@@ -74,8 +74,8 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 import edu.sfsu.cs.orange.ocr.camera.CameraManager;
@@ -98,26 +98,22 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   // Note: These constants will be overridden by any default values defined in preferences.xml.
   
   /** ISO 639-3 language code indicating the default recognition language. */
+  //ここをファイル読み込みに変更
   public static final String DEFAULT_SOURCE_LANGUAGE_CODE = "eng";
-  
   /** ISO 639-1 language code indicating the default target language for translation. */
   public static final String DEFAULT_TARGET_LANGUAGE_CODE = "ja";
+
   
   /** The default online machine translation service to use. */
   public static final String DEFAULT_TRANSLATOR = "Google Translate";
-  
   /** The default OCR engine to use. */
   public static final String DEFAULT_OCR_ENGINE_MODE = "Tesseract";
-  
   /** The default page segmentation mode to use. */
   public static final String DEFAULT_PAGE_SEGMENTATION_MODE = "Auto";
-  
   /** Whether to use autofocus by default. */
   public static final boolean DEFAULT_TOGGLE_AUTO_FOCUS = true;
-  
   /** Whether to initially disable continuous-picture and continuous-video focus modes. */
   public static final boolean DEFAULT_DISABLE_CONTINUOUS_FOCUS = true;
-  
   /** Whether to beep by default when the shutter button is pressed. */
   public static final boolean DEFAULT_TOGGLE_BEEP = false;
   
@@ -273,14 +269,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     
     Button menuButton = (Button) findViewById(R.id.menu_button);
     menuButton.setOnClickListener(new OnClickListener() {
-		
-		@Override
-		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent().setClass(CaptureActivity.this, PreferencesActivity.class);
-		      startActivity(intent);
-		}
-	});
+    
+    @Override
+    public void onClick(View arg0) {
+      // TODO Auto-generated method stub
+      Intent intent = new Intent().setClass(CaptureActivity.this, PreferencesActivity.class);
+          startActivity(intent);
+    }
+  });
 
     cameraManager = new CameraManager(getApplication());
     viewfinderView.setCameraManager(cameraManager);
@@ -404,33 +400,33 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
     
     ((EditText)findViewById(R.id.text_image_recog)).addTextChangedListener(new TextWatcher() {
-		
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			// TODO Auto-generated method stub
-
-			translate(s.toString());
-		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
-		}
-	});
     
-    AdView  adView = (AdView)findViewById(R.id.adView);
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+      // TODO Auto-generated method stub
+
+      translate(s.toString());
+    }
+    
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count,
+        int after) {
+      // TODO Auto-generated method stub
+      
+    }
+    
+    @Override
+    public void afterTextChanged(Editable s) {
+      // TODO Auto-generated method stub
+    }
+  });
+    
+//    AdView  adView = (AdView)findViewById(R.id.adView);
  // 一般的なリクエストを行う
-    AdRequest adRequest = new AdRequest.Builder().build();
+//    AdRequest adRequest = new AdRequest.Builder().build();
 
     // 広告リクエストを行って adView を読み込む
-    adView.loadAd(adRequest);
+//    adView.loadAd(adRequest);
     
     
   }
@@ -467,7 +463,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   
   /** Called when the shutter button is pressed in continuous mode. */
   void onShutterButtonPressContinuous() {
-	  if(isPaused == false) {
+    if(isPaused == false) {
     isPaused = true;
     handler.stop();  
     beepManager.playBeepSoundAndVibrate();
@@ -479,9 +475,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       toast.show();
       resumeContinuousDecoding();
     }
-	  } else {
-		  resumeContinuousDecoding();
-	  }
+    } else {
+      resumeContinuousDecoding();
+    }
   }
 
   /** Called to resume recognition after translation in continuous mode. */
@@ -675,7 +671,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 
       // We can read and write the media
-      //    	if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) > 7) {
+      //      if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) > 7) {
       // For Android 2.2 and above
       
       try {
@@ -695,14 +691,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       //        }
     
     } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-    	// We can only read the media
-    	Log.e(TAG, "External storage is read-only");
+      // We can only read the media
+      Log.e(TAG, "External storage is read-only");
       showErrorMessage("Error", "Required external storage (such as an SD card) is unavailable for data storage.");
     } else {
-    	// Something else is wrong. It may be one of many other states, but all we need
+      // Something else is wrong. It may be one of many other states, but all we need
       // to know is we can neither read nor write
-    	Log.e(TAG, "External storage is unavailable");
-    	showErrorMessage("Error", "Required external storage (such as an SD card) is unavailable or corrupted.");
+      Log.e(TAG, "External storage is unavailable");
+      showErrorMessage("Error", "Required external storage (such as an SD card) is unavailable or corrupted.");
     }
     return null;
   }
@@ -802,9 +798,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //    statusViewBottom.setVisibility(View.GONE);
 //    statusViewTop.setVisibility(View.GONE);
 
-//	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+//  RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
 //    if(parentView.getChildCount() > 0) {
-//  	  parentView.removeAllViews();
+//      parentView.removeAllViews();
 //    }
 //    cameraButtonView.setVisibility(View.GONE);
 //    viewfinderView.setVisibility(View.GONE);
@@ -848,7 +844,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       // Get the translation asynchronously
 //      new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
 //          ocrResult.getText()).execute();
-    	translate(ocrResult.getText());
+      translate(ocrResult.getText());
     } else {
 //      translationLanguageLabelTextView.setVisibility(View.GONE);
 //      translationLanguageTextView.setVisibility(View.GONE);
@@ -888,10 +884,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //      String[] recogLineText = recogText.split("\n");
 //      ArrayList<String> textList = new ArrayList<String>();
 //      for(int i = 0; i < recogLineText.length; i++) {
-//    	  String[] texts = recogLineText[i].split(" ");
-//    	  for(int j = 0; j < texts.length; j++) {
-//    		  textList.add(texts[j]);
-//    	  }
+//        String[] texts = recogLineText[i].split(" ");
+//        for(int j = 0; j < texts.length; j++) {
+//          textList.add(texts[j]);
+//        }
 //      }
       
 
@@ -906,79 +902,79 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
 
       if(!ocrRecogEditText.getText().toString().equals(recogText)) {
-	  ocrRecogEditText.setText(recogText);
+    ocrRecogEditText.setText(recogText);
       }
-	  //TODO 翻訳
-	  translate(recogText);
-	  
+    //TODO 翻訳
+    translate(recogText);
+    
 //      
 //      if(parentView.getChildCount() > 0) {
-//    	  parentView.removeAllViews();
+//        parentView.removeAllViews();
 //      }
 //      int wordCount = wordRectLists.size();
 //      for(int i = 0; i < wordCount && i < textList.size(); i++) {
-//    	  Rect textRect = wordRectLists.get(i);
-//    	  Rect wordRect = new Rect((int)(textRect.left*scaleX), (int)(textRect.top*scaleY), (int)(textRect.right*scaleX), (int)(textRect.bottom*scaleY));
-//    	  final EditText recogTextView = new EditText(this);
-//    	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, wordRect.height());
-//    	  recogTextView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
+//        Rect textRect = wordRectLists.get(i);
+//        Rect wordRect = new Rect((int)(textRect.left*scaleX), (int)(textRect.top*scaleY), (int)(textRect.right*scaleX), (int)(textRect.bottom*scaleY));
+//        final EditText recogTextView = new EditText(this);
+//        recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, wordRect.height());
+//        recogTextView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
 //              @Override
 //              public boolean onPreDraw() {
 //                  // このタイミングでListenerを解除しておかないと何度もイベントが発生しうる
-//            	  recogTextView.getViewTreeObserver().removeOnPreDrawListener(this);
+//                recogTextView.getViewTreeObserver().removeOnPreDrawListener(this);
 //                   
 //                  // View描写時のイベント
-//            	  int viewHeight = recogTextView.getHeight();
-//            	  int viewWidth = recogTextView.getWidth();	
-//            	  // テキストサイズ
-//            	  float textSize = recogTextView.getTextSize();
+//                int viewHeight = recogTextView.getHeight();
+//                int viewWidth = recogTextView.getWidth(); 
+//                // テキストサイズ
+//                float textSize = recogTextView.getTextSize();
 //
-//            	  // Paintにテキストサイズ設定
-//            	  Paint paint = new Paint();
-//            	  paint.setTextSize(textSize);
-//            	  
-//            	  // テキストの縦幅取得
-//            	  FontMetrics fm = paint.getFontMetrics();
-//            	  float textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
+//                // Paintにテキストサイズ設定
+//                Paint paint = new Paint();
+//                paint.setTextSize(textSize);
+//                
+//                // テキストの縦幅取得
+//                FontMetrics fm = paint.getFontMetrics();
+//                float textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
 //
-//            	  // テキストの横幅取得
-//            	  float textWidth = paint.measureText(recogTextView.getText().toString());	
-//            	  
-//            	  while (viewHeight < textHeight | viewWidth < textWidth)
-//            	  {
-//            	  	// テキストサイズをデクリメント
-//            	  	textSize--;
+//                // テキストの横幅取得
+//                float textWidth = paint.measureText(recogTextView.getText().toString());  
+//                
+//                while (viewHeight < textHeight | viewWidth < textWidth)
+//                {
+//                  // テキストサイズをデクリメント
+//                  textSize--;
 //
-//            	  	// Paintにテキストサイズ設定
-//            	  	paint.setTextSize(textSize);
+//                  // Paintにテキストサイズ設定
+//                  paint.setTextSize(textSize);
 //
-//            	  	// テキストの縦幅を再取得
-//            	  	fm = paint.getFontMetrics();
-//            	  	textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
+//                  // テキストの縦幅を再取得
+//                  fm = paint.getFontMetrics();
+//                  textHeight = (float) (Math.abs(fm.top)) + (Math.abs(fm.descent));
 //
-//            	  	// テキストの横幅を再取得
-//            	  	textWidth = paint.measureText(recogTextView.getText().toString());
-//            	  }
+//                  // テキストの横幅を再取得
+//                  textWidth = paint.measureText(recogTextView.getText().toString());
+//                }
 //
-//            	  recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+//                recogTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 //                  // trueを返さないと描写されない
 //                  return true;
 //              }
 //          });
-//    	  recogTextView.setPadding(0, 0, 0, 0);
-//    	  recogTextView.setTextColor(Color.BLACK);
-//    	  recogTextView.setBackgroundResource(R.color.status_top_text_background);
-//    	  recogTextView.getBackground().setAlpha(meanConfidence * (255 / 100));
-//    	  recogTextView.setText(textList.get(i));
-//    	  recogTextView.setGravity(Gravity.CENTER);
-//    	  LayoutParams params = new LayoutParams(wordRect.width(), LayoutParams.WRAP_CONTENT);
-//    	  MarginLayoutParams margine = (MarginLayoutParams)params;
-//    	  margine.setMargins(wordRect.left+offsetLeft, wordRect.top+offsetTop+wordRect.height(), 0, 0);
-//    	  recogTextView.setLayoutParams(margine);
-//    	  parentView.addView(recogTextView);
+//        recogTextView.setPadding(0, 0, 0, 0);
+//        recogTextView.setTextColor(Color.BLACK);
+//        recogTextView.setBackgroundResource(R.color.status_top_text_background);
+//        recogTextView.getBackground().setAlpha(meanConfidence * (255 / 100));
+//        recogTextView.setText(textList.get(i));
+//        recogTextView.setGravity(Gravity.CENTER);
+//        LayoutParams params = new LayoutParams(wordRect.width(), LayoutParams.WRAP_CONTENT);
+//        MarginLayoutParams margine = (MarginLayoutParams)params;
+//        margine.setMargins(wordRect.left+offsetLeft, wordRect.top+offsetTop+wordRect.height(), 0, 0);
+//        recogTextView.setLayoutParams(margine);
+//        parentView.addView(recogTextView);
 //      }
       
-    	
+      
 //      statusViewTop.setText(ocrResult.getText());
 //      int scaledSize = Math.max(22, 32 - ocrResult.getText().length() / 4);
 //      statusViewTop.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
@@ -998,21 +994,21 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   }
   
   void translate(String str) {
-	  if(translatedWord.equals(str)) {
-		  return;
-	  }
+    if(translatedWord.equals(str)) {
+      return;
+    }
 
-	  if(translateAsyncTask != null) {
-		  translateAsyncTask.cancel(true);
-	  }
+    if(translateAsyncTask != null) {
+      translateAsyncTask.cancel(true);
+    }
       EditText translateEditView = (EditText)findViewById(R.id.text_tranclate);
       translateEditView.setText("");
-	  translatedWord = str;
-	  
-	  translateAsyncTask = new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
-			  translatedWord);
-  		translateAsyncTask.execute();
-	  
+    translatedWord = str;
+    
+    translateAsyncTask = new TranslateAsyncTask(this, sourceLanguageCodeTranslation, targetLanguageCodeTranslation, 
+        translatedWord);
+      translateAsyncTask.execute();
+    
   }
   
   /**
@@ -1026,13 +1022,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     
     // Reset the text in the recognized text box.
 //    statusViewTop.setText("");
-//	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+//  RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
 //    if(parentView.getChildCount() > 0) {
-//  	  parentView.removeAllViews();
+//      parentView.removeAllViews();
 //    }
     EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
     if(!ocrRecogEditText.getText().toString().equals("")) {
-	ocrRecogEditText.setText("");
+  ocrRecogEditText.setText("");
     }
     
 //    if (CONTINUOUS_DISPLAY_METADATA) {
@@ -1101,11 +1097,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       }
       return true;
     case OPTIONS_SHARE_RECOGNIZED_TEXT_ID:
-    	Intent shareRecognizedTextIntent = new Intent(android.content.Intent.ACTION_SEND);
-    	shareRecognizedTextIntent.setType("text/plain");
-//    	shareRecognizedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, ocrResultView.getText());
-    	startActivity(Intent.createChooser(shareRecognizedTextIntent, "Share via"));
-    	return true;
+      Intent shareRecognizedTextIntent = new Intent(android.content.Intent.ACTION_SEND);
+      shareRecognizedTextIntent.setType("text/plain");
+//      shareRecognizedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, ocrResultView.getText());
+      startActivity(Intent.createChooser(shareRecognizedTextIntent, "Share via"));
+      return true;
     case OPTIONS_COPY_TRANSLATED_TEXT_ID:
 //        clipboardManager.setText(translationView.getText());
       if (clipboardManager.hasText()) {
@@ -1115,11 +1111,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       }
       return true;
     case OPTIONS_SHARE_TRANSLATED_TEXT_ID:
-    	Intent shareTranslatedTextIntent = new Intent(android.content.Intent.ACTION_SEND);
-    	shareTranslatedTextIntent.setType("text/plain");
-//    	shareTranslatedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, translationView.getText());
-    	startActivity(Intent.createChooser(shareTranslatedTextIntent, "Share via"));
-    	return true;
+      Intent shareTranslatedTextIntent = new Intent(android.content.Intent.ACTION_SEND);
+      shareTranslatedTextIntent.setType("text/plain");
+//      shareTranslatedTextIntent.putExtra(android.content.Intent.EXTRA_TEXT, translationView.getText());
+      startActivity(Intent.createChooser(shareTranslatedTextIntent, "Share via"));
+      return true;
     default:
       return super.onContextItemSelected(item);
     }
@@ -1143,11 +1139,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         EditText ocrRecogEditText = (EditText)findViewById(R.id.text_image_recog);
 
         if(!ocrRecogEditText.getText().toString().equals("")) {
-  	  	ocrRecogEditText.setText("");
+        ocrRecogEditText.setText("");
         }
-//    	RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
+//      RelativeLayout parentView = (RelativeLayout)findViewById(R.id.recog_text_view);
 //        if(parentView.getChildCount() > 0) {
-//      	  parentView.removeAllViews();
+//          parentView.removeAllViews();
 //        }
 //      statusViewTop.setText("");
 //      statusViewTop.setTextSize(14);
@@ -1206,10 +1202,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   @Override
   public void onShutterButtonClick(ShutterButton b) {
     if (isContinuousModeActive) {
-    	Log.d(TAG, "onShutterButtonClick isContinuousModeActive:true");
+      Log.d(TAG, "onShutterButtonClick isContinuousModeActive:true");
       onShutterButtonPressContinuous();
     } else {
-    	Log.d(TAG, "onShutterButtonClick isContinuousModeActive:false");
+      Log.d(TAG, "onShutterButtonClick isContinuousModeActive:false");
       if (handler != null) {
         handler.shutterButtonClick();
       }
@@ -1357,17 +1353,36 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private void setDefaultPreferences() {
     prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+//    public static final String DEFAULT_SOURCE_LANGUAGE_CODE = prefs.getString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, "eng");
+//    public static final String DEFAULT_TARGET_LANGUAGE_CODE = prefs.getString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, "ja");
+
+    
+    
     // Continuous preview
 //    prefs.edit().putBoolean(PreferencesActivity.KEY_CONTINUOUS_PREVIEW, CaptureActivity.DEFAULT_TOGGLE_CONTINUOUS).commit();
 
     // Recognition language
-    prefs.edit().putString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE).commit();
+    String tmpString = "";
+    try {
+      tmpString = prefs.getString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, "eng");
+  } catch (Exception e) {
+    tmpString = CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE;
+  }
+//    prefs.edit().putString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_SOURCE_LANGUAGE_CODE).commit();
+    prefs.edit().putString(PreferencesActivity.KEY_SOURCE_LANGUAGE_PREFERENCE, tmpString).commit();
 
     // Translation
 //    prefs.edit().putBoolean(PreferencesActivity.KEY_TOGGLE_TRANSLATION, CaptureActivity.DEFAULT_TOGGLE_TRANSLATION).commit();
 
     // Translation target language
-    prefs.edit().putString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_TARGET_LANGUAGE_CODE).commit();
+    tmpString = "";
+    try {
+      tmpString = prefs.getString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, "ja");
+  } catch (Exception e) {
+    tmpString = CaptureActivity.DEFAULT_TARGET_LANGUAGE_CODE;
+  }
+//    prefs.edit().putString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, CaptureActivity.DEFAULT_TARGET_LANGUAGE_CODE).commit();
+    prefs.edit().putString(PreferencesActivity.KEY_TARGET_LANGUAGE_PREFERENCE, tmpString).commit();
 
     // Translator
     prefs.edit().putString(PreferencesActivity.KEY_TRANSLATOR, CaptureActivity.DEFAULT_TRANSLATOR).commit();
@@ -1427,11 +1442,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
    * @param message The error message to be displayed
    */
   void showErrorMessage(String title, String message) {
-	  new AlertDialog.Builder(this)
-	    .setTitle(title)
-	    .setMessage(message)
-	    .setOnCancelListener(new FinishListener(this))
-	    .setPositiveButton( "Done", new FinishListener(this))
-	    .show();
+    new AlertDialog.Builder(this)
+      .setTitle(title)
+      .setMessage(message)
+      .setOnCancelListener(new FinishListener(this))
+      .setPositiveButton( "Done", new FinishListener(this))
+      .show();
   }
 }
