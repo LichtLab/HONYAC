@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -397,6 +399,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     } else {
       // We already have the engine initialized, so just start the camera.
       resumeOCR();
+
     }
     
     ((EditText)findViewById(R.id.text_image_recog)).addTextChangedListener(new TextWatcher() {
@@ -427,6 +430,40 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     // 広告リクエストを行って adView を読み込む
 //    adView.loadAd(adRequest);
+
+
+    RmpAppirater.appLaunched(this,
+            new RmpAppirater.ShowRateDialogCondition() {
+                  @Override
+                  public boolean isShowRateDialog(
+                      long appLaunchCount, long appThisVersionCodeLaunchCount,
+                      long firstLaunchDate, int appVersionCode,
+                      int previousAppVersionCode, Date rateClickDate,
+                      Date reminderClickDate, boolean doNotShowAgain) {
+                          // ここでtrueを返すと評価ダイアログを表示します
+                          // 
+                          // パラメーター
+                          // appLaunchCount                アプリの起動回数
+                          // appThisVersionCodeLaunchCount このバージョンでのアプリの起動回数
+                          // firstLaunchDate               初めて起動した日付
+                          // appVersionCode                このアプリのVersionCode
+                          // previousAppVersionCode        前回アプリを起動した際のVersionCode
+                          // rateClickDate                 "Yes, Rate APPNAME"（"APPNAMEを評価する"）を選択した日付
+                          // reminderClickDate             "Remind me later"（"後で見る"）を選択した日付
+                          // doNotShowAgain                "No, Thanks"（"いいえ"）を選択している
+                	  
+                	  
+                		  int count = (int)(appLaunchCount % 5);
+                		  Log.d(TAG, "count :"+count);
+                		  if(count != 0) {
+                			  return false;
+                		  }
+                          // ユーザがまだ評価をしておらず
+                          // && かつダイアログから"No, Thanks"（"いいえ"）を選択していない
+                          // && アプリの起動回数が5回以上
+                          return (rateClickDate == null && !doNotShowAgain && appLaunchCount >= 5);
+                }
+            });
     
     
   }
@@ -443,7 +480,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     // isEngineReady = true here.
     isEngineReady = true;
     
-    isPaused = false;
+    isPaused = true;
 
     if (handler != null) {
       handler.resetState();
@@ -459,21 +496,24 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       // surfaceCreated() won't be called, so init the camera here.
       initCamera(surfaceHolder);
     }
+    
+    stopHandler();
   }
   
   /** Called when the shutter button is pressed in continuous mode. */
   void onShutterButtonPressContinuous() {
     if(isPaused == false) {
     isPaused = true;
-    handler.stop();  
+    stopHandler();  
     beepManager.playBeepSoundAndVibrate();
+    shutterButton.setBackgroundResource(android.R.drawable.ic_media_play);
     if (lastResult != null) {
       handleOcrDecode(lastResult);
     } else {
-      Toast toast = Toast.makeText(this, "OCR failed. Please try again.", Toast.LENGTH_SHORT);
-      toast.setGravity(Gravity.TOP, 0, 0);
-      toast.show();
-      resumeContinuousDecoding();
+//      Toast toast = Toast.makeText(this, "OCR failed. Please try again.", Toast.LENGTH_SHORT);
+//      toast.setGravity(Gravity.TOP, 0, 0);
+//      toast.show();
+//      resumeContinuousDecoding();
     }
     } else {
       resumeContinuousDecoding();
@@ -810,12 +850,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     bitmapImageView.setVisibility(View.VISIBLE);
     lastBitmap = ocrResult.getBitmap();
     if (lastBitmap == null) {
-      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-          R.drawable.ic_launcher));
+    	return false;
+//      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+//          R.drawable.ic_launcher));
     } else {
       bitmapImageView.setImageBitmap(lastBitmap);
+      ((EditText)findViewById(R.id.text_image_recog)).setText(ocrResult.getText());
     }
-    shutterButton.setBackgroundResource(android.R.drawable.ic_media_play);
+//    shutterButton.setBackgroundResource(android.R.drawable.ic_media_play);
 
     // Display the recognized text
 //    TextView sourceLanguageTextView = (TextView) findViewById(R.id.source_language_text_view);
@@ -906,6 +948,18 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       }
     //TODO 翻訳
     translate(recogText);
+
+    ImageView bitmapImageView = (ImageView) findViewById(R.id.image_view);
+    if(isPaused && bitmapImageView.getVisibility() == View.VISIBLE) {
+    lastBitmap = ocrResult.getBitmap();
+    if (lastBitmap == null) {
+    	return;
+//      bitmapImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+//          R.drawable.ic_launcher));
+    } else {
+      bitmapImageView.setImageBitmap(lastBitmap);
+    }
+    }
     
 //      
 //      if(parentView.getChildCount() > 0) {

@@ -138,6 +138,27 @@ public final class R {
         public static final int translationtargetiso6391_microsoft=0x7f0b0009;
         /**  Translation target names for Google Translate. 
  The elements in this array must match to the translationtargetiso6391_google array. 
+<item>Javanese</item>
+		<item>Kannada</item>
+ <item>Khmer</item> 
+<item>Korean</item>
+		<item>Lao</item>
+		<item>Latvian</item>
+		<item>Lithuanian</item>
+		<item>Macedonian</item>
+		<item>Malay</item>
+		<item>Maltese</item>
+		<item>Marathi</item>
+		<item>Norwegian</item>
+		<item>Persian</item>
+		<item>Polish</item>
+		<item>Portuguese</item>
+<item>Romanian</item>
+		<item>Russian</item>
+		<item>Serbian</item>
+		<item>Slovak</item>
+		<item>Slovenian</item>
+		<item>Spanish</item>
 <item>Swahili</item>
 		<item>Swedish</item>
 		<item>Tagalog</item>
@@ -680,6 +701,7 @@ containing a value of this type.
         public static final int image_view=0x7f080028;
         public static final int match_parent=0x7f08001b;
         public static final int menu_button=0x7f08002e;
+        public static final int message=0x7f08002f;
         public static final int monochrome=0x7f080023;
         public static final int none=0x7f08000e;
         public static final int normal=0x7f080010;
@@ -692,6 +714,9 @@ containing a value of this type.
         public static final int preview_view=0x7f080025;
         public static final int production=0x7f080015;
         public static final int quit=0x7f08000a;
+        public static final int rate=0x7f080030;
+        public static final int rate_cancel=0x7f080032;
+        public static final int rate_later=0x7f080031;
         public static final int recog_text_view=0x7f080029;
         public static final int restart_preview=0x7f08000b;
         public static final int sandbox=0x7f080016;
@@ -712,6 +737,7 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int capture=0x7f030000;
+        public static final int rmp_appirater_dialog=0x7f030001;
     }
     public static final class raw {
         public static final int beep=0x7f050000;
@@ -850,6 +876,11 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f070005;
         public static final int create_calendar_title=0x7f070004;
         public static final int decline=0x7f070003;
+        public static final int rmp_appirater_rate=0x7f07002f;
+        public static final int rmp_appirater_rate_cancel=0x7f070031;
+        public static final int rmp_appirater_rate_later=0x7f070030;
+        public static final int rmp_appirater_rate_message=0x7f07002e;
+        public static final int rmp_appirater_rate_title=0x7f07002d;
         public static final int store_picture_message=0x7f070001;
         public static final int store_picture_title=0x7f070000;
         /**  Text on a placeholder buy button when Google Play services is not
