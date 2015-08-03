@@ -26,10 +26,11 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import edu.sfsu.cs.orange.ocr.PlanarYUVLuminanceSource;
-import edu.sfsu.cs.orange.ocr.PreferencesActivity;
 
 import java.io.IOException;
+
+import com.nature.code.odica.PlanarYUVLuminanceSource;
+import com.nature.code.odica.PreferencesActivity;
 
 /**
  * This object wraps the Camera service object and expects to be the only one talking to it. The

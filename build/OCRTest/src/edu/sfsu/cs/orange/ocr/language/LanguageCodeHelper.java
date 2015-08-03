@@ -15,11 +15,12 @@
  */
 package edu.sfsu.cs.orange.ocr.language;
 
+import com.nature.code.odica.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
-import edu.sfsu.cs.orange.ocr.R;
 
 /**
  * Class for handling functions relating to converting between standard language

@@ -26,7 +26,7 @@
         android:layout_height="fill_parent"
         android:layout_centerInParent="true" />
 
-    <edu.sfsu.cs.orange.ocr.ViewfinderView
+    <com.nature.code.odica.ViewfinderView
         android:id="@+id/viewfinder_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

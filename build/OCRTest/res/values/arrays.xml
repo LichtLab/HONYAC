@@ -74,7 +74,7 @@
 		<!--<item>Icelandic</item> -->
 		<!--<item>Indonesian</item> -->
 		<!--<item>Italian</item> -->
-		<item>Japanese</item>
+		<!--<item>Japanese</item>-->
 		<!--<item>Kannada</item> -->
 		<!--<item>Korean</item> -->
 		<!--<item>Latvian</item> -->
@@ -117,6 +117,7 @@
 		<!-- <item>chr</item> --> <!-- Cherokee -->
 		<!--<item>chi_sim</item>--> <!-- Chinese (Simplified) -->
 		<!--<item>chi_tra</item>--> <!-- Chinese (Traditional) -->
+		<!--<item>chi_sim</item>--> <!-- Chinese -->
 		<!--<item>hrv</item>--> <!-- Croatian -->
 		<!--<item>ces</item>--> <!-- Czech -->
 		<!--<item>dan</item>--> <!-- Danish -->
@@ -134,7 +135,7 @@
 		<!--<item>isl</item>--> <!-- Icelandic -->
 		<!--<item>ind</item>--> <!-- Indonesian -->
 		<!--<item>ita</item>--> <!-- Italian -->
-		<item>jpn</item> <!-- Japanese -->
+		<!--<item>jpn</item>--> <!-- Japanese -->
 		<!--<item>kan</item>--> <!-- Kannada -->
 		<!--<item>kor</item>--> <!-- Korean -->
 		<!--<item>lav</item>--> <!-- Latvian -->
@@ -180,7 +181,7 @@
 		<!--<item>hu</item>--> <!-- Hungarian -->
 		<!--<item>id</item>--> <!-- Indonesian -->
 		<!--<item>it</item>--> <!-- Italian -->
-		<item>ja</item> <!-- Japanese -->
+		<!--<item>ja</item>--> <!-- Japanese -->
 		<!--<item>ko</item>--> <!-- Korean -->
 		<!--<item>lv</item>--> <!-- Latvian -->
 		<!--<item>lt</item>--> <!-- Lithuanian -->
@@ -214,7 +215,7 @@
 		<!--<item>bg</item>--> <!-- Bulgarian -->
 		<!--<item>ca</item>--> <!-- Catalan -->
 		<!--<item>ceb</item>--> <!-- Cebuano -->
-		<!--<item>zh</item>--> <!-- Chinese -->
+		<item>ch</item> <!-- Chinese -->
 		<!--<item>zh-CN</item>--> <!-- Chinese (Simplified) -->
 		<!--<item>zh-TW</item>--> <!-- Chinese (Traditional) -->
 		<!--<item>hr</item>--> <!-- Croatian -->
@@ -288,9 +289,9 @@
 		<item>Bosnian</item>
 		<item>Bulgarian</item>
 		<item>Catalan</item>
-		<item>Cebuano</item>
+		<item>Cebuano</item>-->
 		<item>Chinese</item>
-		<item>Chinese (Simplified)</item>
+		<!--<item>Chinese (Simplified)</item>
 		<item>Chinese (Traditional)</item>
 		<item>Croatian</item>
 		<item>Czech</item>
@@ -445,6 +446,7 @@
 	</string-array>
 	
 		<string-array name="translationtargetlanguagenames_local">
+		<item>Chinese</item>
 		<item>English</item>
 		<item>Japanese</item>
 	</string-array>

@@ -19,8 +19,8 @@ import android.util.Log;
 
 import com.memetix.mst.language.Language;
 import com.memetix.mst.translate.Translate;
+import com.nature.code.odica.CaptureActivity;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
 
 public class TranslatorBing {
   private static final String TAG = TranslatorBing.class.getSimpleName();

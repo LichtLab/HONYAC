@@ -17,10 +17,10 @@
  -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="edu.sfsu.cs.orange.ocr"
+          package="com.nature.code.odica"
           android:installLocation="preferExternal" 
-          android:versionName="0.5.14" 
-          android:versionCode="33"
+          android:versionName="0.0.1" 
+          android:versionCode="1"
           >
   <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="22"/>
   <supports-screens android:xlargeScreens="true"

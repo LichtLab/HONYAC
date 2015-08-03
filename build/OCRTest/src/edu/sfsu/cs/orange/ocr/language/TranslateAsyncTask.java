@@ -15,8 +15,8 @@
  */
 package edu.sfsu.cs.orange.ocr.language;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
-import edu.sfsu.cs.orange.ocr.R;
+import com.nature.code.odica.CaptureActivity;
+import com.nature.code.odica.R;
 
 import android.graphics.Typeface;
 import android.os.AsyncTask;

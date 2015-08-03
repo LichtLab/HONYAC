@@ -20,8 +20,8 @@ import android.util.Log;
 import com.google.api.GoogleAPI;
 import com.google.api.translate.Language;
 import com.google.api.translate.Translate;
+import com.nature.code.odica.CaptureActivity;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
 
 public class TranslatorGoogle {
   private static final String TAG = TranslatorGoogle.class.getSimpleName();

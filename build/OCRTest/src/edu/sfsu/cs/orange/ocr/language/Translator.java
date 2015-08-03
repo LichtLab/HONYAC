@@ -18,6 +18,8 @@ package edu.sfsu.cs.orange.ocr.language;
 import java.io.IOException;
 
 import com.dictionary.search.DataBaseHelper;
+import com.nature.code.odica.CaptureActivity;
+import com.nature.code.odica.PreferencesActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,8 +31,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
-import edu.sfsu.cs.orange.ocr.PreferencesActivity;
 
 /**
  * Delegates translation requests to the appropriate translation service.
@@ -55,9 +55,10 @@ public class Translator {
 		DataBaseHelper mDbHelper;  
 		SQLiteDatabase db;  
 		mDbHelper = new DataBaseHelper(activity, wordBankname);  
+		if(asyncTask.isCancelled()) return BAD_TRANSLATION_MSG;
 		try {  
 			mDbHelper.createEmptyDataBase();  
-			db = mDbHelper.openDataBase();  
+//			db = mDbHelper.openDataBase();  
 		} catch (IOException ioe) {  
 			throw new Error("Unable to create database");  
 		} catch(SQLException sqle){  

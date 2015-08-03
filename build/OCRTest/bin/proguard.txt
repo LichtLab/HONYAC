@@ -5,13 +5,13 @@
 -keep class com.google.android.gms.ads.AdView { <init>(...); }
 
 # view AndroidManifest.xml #generated:40
--keep class edu.sfsu.cs.orange.ocr.CaptureActivity { <init>(...); }
+-keep class com.nature.code.odica.CaptureActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:62
--keep class edu.sfsu.cs.orange.ocr.PreferencesActivity { <init>(...); }
+-keep class com.nature.code.odica.PreferencesActivity { <init>(...); }
 
 # view res/layout/capture.xml #generated:29
--keep class edu.sfsu.cs.orange.ocr.ViewfinderView { <init>(...); }
+-keep class com.nature.code.odica.ViewfinderView { <init>(...); }
 
 # view res/layout/capture.xml #generated:227
 -keep class edu.sfsu.cs.orange.ocr.camera.ShutterButton { <init>(...); }

@@ -41,17 +41,20 @@ public class Dicworker {
 			e.printStackTrace();
 		}
 		this.conn = DriverManager
-				.getConnection("jdbc:sqldroid:/data/data/edu.sfsu.cs.orange.ocr/databases/"
+				.getConnection("jdbc:sqldroid:/data/data/com.nature.code.odica/databases/"
 						+ dbname + ".db");
 		this.stmt = conn.createStatement();
 		// 入力されたstringで検索
 		ArrayList<Word> searchedwords = sqlWorker(src);
-		if (asyncTask.isCancelled())
+		if (asyncTask.isCancelled()) {
+			conn.close();
 			return searchedwords;
+		}
 		// 1つもヒットしなかったらngramに分割して部分一致の検索
 		if (searchedwords == null || searchedwords.size() < 1) {
 			searchedwords = getRelativeWords(src);
 		}
+		conn.close();
 		return searchedwords;
 	}
 
