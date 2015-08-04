@@ -6,11 +6,14 @@ from microsofttranslator import Translator
 import time
 import random
 import traceback
+import sys
 
 # translator = Translator('soutasekine', 'Tk8KK3j2+W4f6v/n1lgXeLwsbZHVUdTnZLu3L++XNQI=')
 # translator = Translator('skeven', 'vizaHdZEjZkP0ZdL/B3CQ0UO9yzsgmTT2hDtuvJFdL0=')
 # translator = Translator('takikosekine', 'zjTibYqktK1UpZd2bepNVLflJlVCcSxjrtrmFJNwCWY=')
-translator = Translator('naosekine', 'M04ecskst3RZtaLpLZK4EbOG836TQf6r0IX7rmo5XKg=')
+# translator = Translator('naosekine', 'M04ecskst3RZtaLpLZK4EbOG836TQf6r0IX7rmo5XKg=')
+translator = Translator('ssekine', 'J27sphE2O9LiOcyTEya0ZDeesIpKjfDYIges9t5bFGY=')
+
 
 def isNewWord(word, cur):
         word = (word,)
@@ -31,9 +34,12 @@ def mainmethod():
 	except Exception, e:
 		print 'Target Table already exist'
 		pass
-
-	cur.execute("SELECT from_word, count FROM wordTable")
+	argvs = sys.argv
+	# headword = "a"
+	headword = argvs[1]
+	cur.execute("SELECT from_word, count FROM wordTable WHERE from_word like \'" + headword + "%\'")
 	for d in cur.fetchall():
+		# print d[0]
 		try:
 			from_word = d[0]
 			isNew = isNewWord(from_word,tocur)
@@ -51,6 +57,7 @@ def mainmethod():
 			else:
 				print 'ALREADY EXIST'
 		except Exception, e:
+			print traceback.format_exc()
 			pass
 
 	tocon.close()
