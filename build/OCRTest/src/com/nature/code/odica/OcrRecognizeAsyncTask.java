@@ -90,11 +90,17 @@ final class OcrRecognizeAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
       if(isCancelled()) return false;
       ocrResult = new OcrResult();
+      if(isCancelled()) return false;
       ocrResult.setWordConfidences(baseApi.wordConfidences());
+      if(isCancelled()) return false;
       ocrResult.setMeanConfidence( baseApi.meanConfidence());
+      if(isCancelled()) return false;
       ocrResult.setRegionBoundingBoxes(baseApi.getRegions().getBoxRects());
+      if(isCancelled()) return false;
       ocrResult.setTextlineBoundingBoxes(baseApi.getTextlines().getBoxRects());
+      if(isCancelled()) return false;
       ocrResult.setWordBoundingBoxes(baseApi.getWords().getBoxRects());
+      if(isCancelled()) return false;
       ocrResult.setStripBoundingBoxes(baseApi.getStrips().getBoxRects());
 
       if(isCancelled()) return false;
@@ -111,8 +117,11 @@ final class OcrRecognizeAsyncTask extends AsyncTask<Void, Void, Boolean> {
       return false;
     }
     timeRequired = System.currentTimeMillis() - start;
+    if(isCancelled()) return false;
     ocrResult.setBitmap(bitmap);
+    if(isCancelled()) return false;
     ocrResult.setText(textResult);
+    if(isCancelled()) return false;
     ocrResult.setRecognitionTimeRequired(timeRequired);
     return true;
   }

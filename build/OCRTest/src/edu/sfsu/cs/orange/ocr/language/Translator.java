@@ -103,8 +103,8 @@ public class Translator {
 	//スペイン・ポルトガル語は同じ辞書なので共にwordBank_spa_jpn.dbファイルに接続させる
 	private static String modifyCountryName(String country){
 		String ctname = country;
-		if(country.equals("pol")){
-			ctname = "spa";
+		if(country.equals("pt")){
+			ctname = "es";
 		}
 		return ctname;
 	}

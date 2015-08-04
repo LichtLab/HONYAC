@@ -116,6 +116,7 @@ final class CameraConfigurationManager {
     }
 
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
+    parameters.setExposureCompensation(parameters.getMaxExposureCompensation()*2/3);
     camera.setParameters(parameters);
   }
 

@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import com.dictionary.search.DataBaseHelper;
 import com.dictionary.search.Searcher;
 import com.dictionary.search.Word;
@@ -57,11 +59,14 @@ public class TranslatorLocal {
 
 	@SuppressLint("NewApi")
 	private static String stripDiacritics(String str) {
+		Log.d("TranslatorLocal", "str:"+str);
 	   	str = Normalizer.normalize(str, Normalizer.Form.NFD);
+		Log.d("TranslatorLocal", "normalize:"+str);
 
 	   	String regex = Pattern.quote("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
 
 	   	String s2 = str.replaceAll(regex, "");
+		Log.d("TranslatorLocal", "replaceAll:"+s2);
 //	   	Pattern DIACRITICS_AND_FRIENDS = Pattern.compile("[p{InCombiningDiacriticalMarks}p{IsLm}p{IsSk}]+");
 //	   	str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
    		return str;

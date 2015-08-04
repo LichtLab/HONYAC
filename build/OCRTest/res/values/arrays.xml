@@ -73,7 +73,7 @@
 		<!--<item>Hungarian</item> -->
 		<!--<item>Icelandic</item> -->
 		<!--<item>Indonesian</item> -->
-		<!--<item>Italian</item> -->
+		<item>Italian</item>
 		<!--<item>Japanese</item>-->
 		<!--<item>Kannada</item> -->
 		<!--<item>Korean</item> -->
@@ -134,7 +134,7 @@
 		<!--<item>hun</item>--> <!-- Hungarian -->
 		<!--<item>isl</item>--> <!-- Icelandic -->
 		<!--<item>ind</item>--> <!-- Indonesian -->
-		<!--<item>ita</item>--> <!-- Italian -->
+		<item>ita</item> <!-- Italian -->
 		<!--<item>jpn</item>--> <!-- Japanese -->
 		<!--<item>kan</item>--> <!-- Kannada -->
 		<!--<item>kor</item>--> <!-- Korean -->
@@ -180,7 +180,7 @@
 		<!--<item>el</item>--> <!-- Greek -->
 		<!--<item>hu</item>--> <!-- Hungarian -->
 		<!--<item>id</item>--> <!-- Indonesian -->
-		<!--<item>it</item>--> <!-- Italian -->
+		<item>it</item> <!-- Italian -->
 		<!--<item>ja</item>--> <!-- Japanese -->
 		<!--<item>ko</item>--> <!-- Korean -->
 		<!--<item>lv</item>--> <!-- Latvian -->
